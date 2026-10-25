@@ -2,626 +2,314 @@
 <html lang="hi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Adv. V.k Yadav | Your Legal Shield</title>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@400;700;900&family=Inter:wght@400;800;900&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fast-Track Divorce & 2X Maintenance Blueprint</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Noto Sans Devanagari', sans-serif; background: #fff; color: #111; line-height: 1.3; overflow-x: hidden; }
-
-        /* 🚨 Psychological Ticker (Fear of Loss) */
-        .urgent-alert {
-            background: #d90429; color: #fff; padding: 12px;
-            text-align: center; font-weight: 900; font-size: 0.95rem;
-            letter-spacing: 0.5px; position: sticky; top: 0; z-index: 1001;
-            box-shadow: 0 4px 15px rgba(217, 4, 41, 0.4);
-        }
-
-        /* Clean Branding Header */
-        header {
-            padding: 20px 8%; display: flex; justify-content: space-between;
-            align-items: center; background: rgba(255,255,255,0.98);
-            border-bottom: 1px solid #f0f0f0; position: sticky; top: 45px; z-index: 1000;
-        }
-        .lawyer-brand { font-size: 1.4rem; font-weight: 900; color: #002d62; }
-        .lawyer-brand span { color: #c5a059; font-size: 0.75rem; display: block; letter-spacing: 2px; margin-top: 4px; }
-
-        /* Hero Layout */
-        .hero {
-            display: grid; grid-template-columns: 1.2fr 0.8fr;
-            padding: 80px 8%; align-items: center; min-height: 85vh; gap: 50px;
-            background: linear-gradient(135deg, #f0f7ff 0%, #ffffff 100%);
-        }
-
-        /* Power Headline */
-        .hero-box h1 { font-size: clamp(2.8rem, 5vw, 4.2rem); color: #002d62; line-height: 1.1; margin-bottom: 25px; font-weight: 900; }
-        .hero-box h1 span { color: #c5a059; }
-
-        /* Pain-Point Solvers (The 3 Promises) */
-        .solution-grid { margin-bottom: 40px; }
-        .solution-item { 
-            display: flex; align-items: flex-start; gap: 15px; margin-bottom: 20px; 
-            padding: 15px; background: #fff; border-radius: 12px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05); border-left: 5px solid #25d366;
-        }
-        .solution-item strong { color: #002d62; font-size: 1.2rem; display: block; }
-        .solution-item p { color: #555; font-size: 0.95rem; font-weight: 600; }
-
-        /* Aggressive Call Buttons */
-        .action-container { display: flex; gap: 20px; flex-wrap: wrap; }
-        
-        .btn-call-now { 
-            background: #d90429; color: #fff; padding: 22px 50px; 
-            border-radius: 15px; text-decoration: none; font-weight: 900;
-            font-size: 1.4rem; display: flex; align-items: center; gap: 12px;
-            box-shadow: 0 15px 35px rgba(217, 4, 41, 0.3); transition: 0.3s;
+        @import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Poppins:wght@700;900&display=swap');
+        body { font-family: 'Hind', sans-serif; -webkit-tap-highlight-color: transparent; }
+        .heading-font { font-family: 'Poppins', sans-serif; }
+        .pulse-btn {
             animation: pulse 1.5s infinite;
         }
-        
-        .btn-wa-now { 
-            background: #25d366; color: #fff; padding: 22px 50px; 
-            border-radius: 15px; text-decoration: none; font-weight: 900;
-            font-size: 1.4rem; transition: 0.3s; border: 2px solid #25d366;
-        }
-
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.03); }
-            100% { transform: scale(1); }
-        }
-
-        /* Artistic Visual */
-        .image-side { position: relative; width: 100%; height: 550px; }
-        .brush-art {
-            width: 100%; height: 100%;
-            background: url('https://images.unsplash.com/photo-1515934751635-c81c6bc9a2d8?q=80&w=2070');
-            background-size: cover; background-position: center;
-            -webkit-mask-image: url('https://i.imgur.com/39p6A2g.png');
-            mask-image: url('https://i.imgur.com/39p6A2g.png');
-            mask-size: contain; mask-repeat: no-repeat; mask-position: center;
-        }
-
-        /* Floating Authority */
-        .trust-tag {
-            position: absolute; bottom: 30px; left: -20px;
-            background: #002d62; color: #fff; padding: 20px; border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-        }
-        .trust-tag b { font-size: 1.5rem; display: block; color: #f1d392; }
-
-        @media (max-width: 968px) {
-            .hero { grid-template-columns: 1fr; text-align: center; padding: 40px 5%; }
-            .action-container { justify-content: center; }
-            .solution-item { text-align: left; }
-            .image-side { height: 350px; order: -1; }
-            .trust-tag { left: 50%; transform: translateX(-50%); width: 80%; bottom: 0; }
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 12px rgba(147, 51, 234, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); }
         }
     </style>
 </head>
-<body>
+<body class="bg-slate-900 text-slate-100 antialiased pb-28">
 
-    <div class="urgent-alert">🛑 FIR और गिरफ्तारी से पहले अपनी सुरक्षा पक्की करें। कॉल अभी चालू है!</div>
+    <!-- Top Mobile Urgency Banner -->
+    <div class="bg-gradient-to-r from-red-700 via-purple-700 to-red-700 text-white text-center py-2 px-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider sticky top-0 z-40 shadow-lg">
+        ⚡ Aakhri 7 Slots Baaki - Course @ Sirf ₹399 ⚡
+    </div>
 
-    <header>
-        <div class="lawyer-brand">
-            Adv. V. k Yadav
-            <span>HIGH COURT PROTECTION SPECIALISTS</span>
+    <!-- Live Purchase Toast -->
+    <div id="purchaseToast" class="fixed bottom-20 left-3 right-3 bg-slate-800 border-2 border-purple-500 text-white p-3 rounded-2xl shadow-2xl z-40 transition-all duration-500 opacity-0 transform translate-y-10 flex items-center space-x-3 max-w-sm mx-auto">
+        <div class="w-9 h-9 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-base shrink-0">
+            <i class="fa-solid fa-mobile-screen"></i>
         </div>
-        <div class="call-text">
-            <a href="tel:9458005707" style="text-decoration:none; color:#d90429; font-weight:900; font-size:1.4rem;">📞 9458005707</a>
+        <div class="overflow-hidden">
+            <p id="toastUser" class="font-bold text-xs text-amber-400 truncate"></p>
+            <p id="toastDetail" class="text-[10px] text-slate-300 truncate"></p>
         </div>
-    </header>
+    </div>
 
-    <section class="hero">
-        <div class="hero-box">
-            <h1>कोई आपको अलग नहीं कर सकता, <span>अब डरो मत।</span></h1>
-            
-            <div class="solution-grid">
-                <div class="solution-item">
-                    <div>
-                        <strong>100% पुलिस सुरक्षा (High Court)</strong>
-                        <p>शादी के तुरंत बाद आपको और आपके पार्टनर को कानूनी सुरक्षा मिलेगी।</p>
-                    </div>
+    <!-- Main Mobile Container -->
+    <div class="max-w-md mx-auto px-4 py-6">
+
+        <!-- Hero Section -->
+        <header class="text-center mb-6">
+            <span class="inline-block bg-purple-600/30 border border-purple-500 text-purple-300 font-bold px-3 py-1 rounded-full text-[11px] mb-3 uppercase tracking-wider">
+                💣 Secret Legal Victory Blueprint
+            </span>
+            <h1 class="heading-font text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3">
+                Tareekh Par Tareekh Se Chutkara! <br/>
+                <span class="text-amber-400 underline decoration-purple-600">2-3 Court Dates Mein Case Close</span> Formula!
+            </h1>
+            <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
+                Lawyer Har Tareekh Ke ₹5,000 Leta Hai—Ye ₹399 Ka Formula Aapke Lakhon Rupaye Aur Saalon Ka Time Bachayega. Secret High Court & Supreme Court Legal Tactics!
+            </p>
+
+            <!-- CTA BUTTON #1 (HERO) -->
+            <button onclick="payNow()" class="pulse-btn w-full bg-purple-600 active:bg-purple-700 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-xl flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-mobile-screen text-xl"></i>
+                <span>PAY ₹399 VIA UPI & GET ACCESS</span>
+            </button>
+        </header>
+
+        <!-- Main Highlights Box -->
+        <div class="space-y-4 mb-6">
+            <!-- Highlight 1 -->
+            <div class="bg-slate-800 border-2 border-amber-500/50 rounded-2xl p-4 shadow-xl relative">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg shrink-0">⚡</div>
+                    <h3 class="text-base font-bold text-amber-400">2-3 Tarikh Divorce Strategy</h3>
                 </div>
-                <div class="solution-item">
-                    <div>
-                        <strong>सीक्रेट मैरिज (कोई नोटिस नहीं)</strong>
-                        <p>आपकी शादी की जानकारी पूरी तरह गुप्त रहेगी, घर पर कोई सूचना नहीं जाएगी।</p>
-                    </div>
-                </div>
-                <div class="solution-item">
-                    <div>
-                        <strong>झूठी FIR से तुरंत बचाव</strong>
-                        <p>अगर घर वाले केस करें, तो हम उसे हाई कोर्ट से तुरंत खत्म करवाएंगे।</p>
-                    </div>
-                </div>
+                <p class="text-slate-300 text-xs leading-relaxed mb-3">
+                    Court room ke wo unspoken tactics jisse saalon tak chalne waale divorce case ko <strong>sirf 2 se 3 hearings mein decisive conclusion</strong> par laaya ja sakta hai.
+                </p>
+                <button onclick="payNow()" class="w-full bg-purple-600 active:bg-purple-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-bolt"></i>
+                    <span>Unlock 2-3 Date Strategy @ ₹399</span>
+                </button>
             </div>
 
-            <div class="action-container">
-                <a href="tel:9458005707" class="btn-call-now">📞 अभी अपनी सुरक्षा लें</a>
-                <a href="https://wa.me/919458005707" class="btn-wa-now">WhatsApp</a>
+            <!-- Highlight 2 -->
+            <div class="bg-slate-800 border-2 border-emerald-500/50 rounded-2xl p-4 shadow-xl relative">
+                <div class="flex items-center space-x-3 mb-2">
+                    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg shrink-0">💰</div>
+                    <h3 class="text-base font-bold text-emerald-400">2X Maintenance Claim Hacks</h3>
+                </div>
+                <p class="text-slate-300 text-xs leading-relaxed mb-3">
+                    Opposing party ke income & asset hiding ko expose karke court se <strong>maintenance amount 2 guna (Doguna)</strong> claim karne ka solid legal formula.
+                </p>
+                <button onclick="payNow()" class="w-full bg-purple-600 active:bg-purple-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-coins"></i>
+                    <span>Unlock 2X Maintenance Hack @ ₹399</span>
+                </button>
             </div>
         </div>
 
-        <div class="image-side">
-            <div class="brush-art"></div>
-            <div class="trust-tag">
-                <b>1500+ Couples</b>
-                <span>सुरक्षित और खुशहाल हैं।</span>
+        <!-- Detailed Course Modules Section -->
+        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 mb-6 shadow-lg">
+            <h3 class="text-base font-bold text-white mb-3 border-b border-slate-700 pb-2 flex items-center space-x-2">
+                <i class="fa-solid fa-folder-open text-amber-400"></i>
+                <span>Course Ke Andar Kya Covered Hai:</span>
+            </h3>
+            <div class="space-y-2.5 text-xs text-slate-300 mb-4">
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                    <p class="font-bold text-amber-400 mb-0.5">📌 Fast-Track Proceeding Hacks</p>
+                    <p class="text-[11px]">Unnecessary adjournments aur delays ko block karne ke High Court statutory procedures.</p>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                    <p class="font-bold text-emerald-400 mb-0.5">📌 Asset & Income Unmasking</p>
+                    <p class="text-[11px]">Opponent ke hidden bank accounts aur cash income ko court mein legally prove karne ka format.</p>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                    <p class="font-bold text-amber-400 mb-0.5">📌 Interim Relief Applications</p>
+                    <p class="text-[11px]">Pehli hi hearing mein emergency interim maintenance activate karne ka legal draft.</p>
+                </div>
+                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
+                    <p class="font-bold text-emerald-400 mb-0.5">📌 Ready Court Draft Templates</p>
+                    <p class="text-[11px]">Ready-to-use notice, reply drafting, aur maintenance increase petitions.</p>
+                </div>
+            </div>
+            <button onclick="payNow()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold text-xs py-3 px-3 rounded-xl shadow-lg flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-download"></i>
+                <span>DOWNLOAD COMPLETE MODULES VIA UPI (₹399)</span>
+            </button>
+        </div>
+
+        <!-- Legal Consultancy & Advisory Section -->
+        <div class="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 border-2 border-purple-500/60 rounded-2xl p-4 mb-6 shadow-2xl">
+            <div class="flex items-center space-x-3 mb-3">
+                <div class="w-10 h-10 rounded-xl bg-purple-600/30 border border-purple-500 flex items-center justify-center text-purple-400 font-bold text-xl shrink-0">
+                    <i class="fa-solid fa-user-shield"></i>
+                </div>
+                <div>
+                    <h3 class="text-base font-bold text-white leading-tight">1-on-1 Legal Strategy Advice</h3>
+                    <p class="text-[11px] text-purple-300">Course + Dedicated Support Guidance</p>
+                </div>
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed mb-3">
+                Kya aapka case bohot complicated hai? Course ke saath-saath aapko milta hai legal team se strategy support jisse case pehli hearing se aapke favouable ho sake.
+            </p>
+            <button onclick="payNow()" class="w-full bg-purple-600 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
+                <i class="fa-solid fa-headset"></i>
+                <span>GET COURSE + CONSULTANCY ACCESS</span>
+            </button>
+        </div>
+
+        <!-- Price Callout Box -->
+        <div class="bg-gradient-to-r from-purple-950 via-slate-800 to-purple-950 border-2 border-purple-500 rounded-3xl p-5 text-center mb-6 shadow-2xl relative">
+            <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white font-black text-[10px] px-3 py-0.5 rounded-full uppercase tracking-widest shadow">
+                Instant Access Offer
+            </span>
+            <p class="text-slate-400 text-[10px] mb-1 uppercase font-semibold">Course Price Today</p>
+            <div class="flex items-center justify-center space-x-2 mb-4">
+                <span class="text-slate-500 line-through text-xl font-bold">₹1,999</span>
+                <span class="text-4xl font-black text-emerald-400">₹399</span>
+                <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">80% OFF</span>
+            </div>
+            <button onclick="payNow()" class="pulse-btn w-full bg-purple-600 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <span>PAY ₹399 WITH UPI NOW</span>
+            </button>
+            <button onclick="payNow()" class="w-full bg-slate-800 border border-purple-500/50 text-purple-300 font-bold text-xs py-2.5 px-3 rounded-lg flex items-center justify-center space-x-2">
+                <i class="fa-solid fa-qrcode"></i>
+                <span>Direct UPI Express (₹399)</span>
+            </button>
+        </div>
+
+        <!-- FAQs Section -->
+        <div class="mb-6">
+            <h3 class="text-xl font-bold text-white text-center mb-4">
+                ❓ Frequently Asked Questions (FAQ)
+            </h3>
+            <div class="space-y-2.5 mb-4">
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
+                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Kya 2-3 tarikh mein divorce practical hai?</p>
+                    <p class="text-slate-300 text-[11px]">Sahi grounds aur High Court precedents submit karne par court fast-track decision deti hai.</p>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
+                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Maintenance double (2X) kaise hota hai?</p>
+                    <p class="text-slate-300 text-[11px]">Opponents ke hidden income ko legal disclosures dwara expose karke court se double claim milta hai.</p>
+                </div>
+                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
+                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Payment ke baad PDF kaise milegi?</p>
+                    <p class="text-slate-300 text-[11px]">UPI Payment complete hote hi screen par direct Download Material button aa jayega.</p>
+                </div>
+            </div>
+            <button onclick="payNow()" class="w-full bg-purple-600 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
+                <i class="fa-solid fa-lock"></i>
+                <span>GET INSTANT ACCESS VIA UPI (₹399)</span>
+            </button>
+        </div>
+
+        <!-- Footer -->
+        <footer class="border-t border-slate-800 pt-6 text-center text-[11px] text-slate-500">
+            <div class="flex flex-wrap justify-center gap-2 mb-3 text-slate-400">
+                <button onclick="openModal('contactModal')" class="hover:text-amber-400">Contact</button> |
+                <button onclick="openModal('privacyModal')" class="hover:text-amber-400">Privacy Policy</button> |
+                <button onclick="openModal('termsModal')" class="hover:text-amber-400">Terms</button> |
+                <button onclick="openModal('refundModal')" class="hover:text-amber-400">Refund Policy</button>
+            </div>
+            <p>© 2026 Legal Fast-Track Consultancy.</p>
+        </footer>
+    </div>
+
+    <!-- MOBILE FLOATING PAYMENT BAR -->
+    <div class="fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t-2 border-purple-500 p-2.5 z-50 backdrop-blur-md shadow-2xl">
+        <div class="max-w-md mx-auto flex items-center justify-between space-x-2">
+            <div>
+                <span class="text-[9px] text-slate-400 block uppercase font-bold">Limited Offer</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-xl font-black text-emerald-400">₹399</span>
+                    <span class="text-slate-500 line-through text-[10px] font-bold">₹1,999</span>
+                </div>
+            </div>
+            <button onclick="payNow()" class="pulse-btn bg-purple-600 active:bg-purple-700 text-white font-extrabold text-xs py-2.5 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-mobile-screen"></i>
+                <span>PAY VIA UPI</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- Modals (Policies) -->
+    <div id="contactModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative">
+            <button onclick="closeModal('contactModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
+            <h3 class="text-lg font-bold text-amber-400 mb-2">Contact Support</h3>
+            <div class="space-y-1.5 text-xs">
+                <p><strong>📧 Email:</strong> support@legalfasttrack.in</p>
+                <p><strong>💬 WhatsApp:</strong> +91 98765 43210</p>
             </div>
         </div>
-    </section>
+    </div>
 
+    <div id="privacyModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
+            <button onclick="closeModal('privacyModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
+            <h3 class="text-lg font-bold text-amber-400 mb-2">Privacy Policy</h3>
+            <p class="text-[10px] text-slate-300">Data is 100% secure and encrypted.</p>
+        </div>
+    </div>
+
+    <div id="termsModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
+            <button onclick="closeModal('termsModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
+            <h3 class="text-lg font-bold text-amber-400 mb-2">Terms & Conditions</h3>
+            <p class="text-[10px] text-slate-300">Course provides educational strategy guidance.</p>
+        </div>
+    </div>
+
+    <div id="refundModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
+            <button onclick="closeModal('refundModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
+            <h3 class="text-lg font-bold text-amber-400 mb-2">Refund Policy</h3>
+            <p class="text-[10px] text-slate-300">Instant PDF download nature applies.</p>
+        </div>
+    </div>
+
+    <!-- JavaScript Logic & UPI Payment Integration -->
+    <script>
+        const names = [
+            "Amit Sharma", "Rahul Verma", "Priya Singh", "Vikram Patel", "Rajesh Kumar",
+            "Neha Gupta", "Suresh Yadav", "Ankit Mishra", "Pooja Reddy", "Deepak Joshi"
+        ];
+        const cities = ["Delhi", "Mumbai", "Bengaluru", "Lucknow", "Jaipur", "Ahmedabad", "Pune", "Indore"];
+        let buyerIndex = 0;
+
+        function showPurchaseToast() {
+            const toast = document.getElementById('purchaseToast');
+            const userEl = document.getElementById('toastUser');
+            const detailEl = document.getElementById('toastDetail');
+
+            const name = names[buyerIndex % names.length];
+            const city = cities[Math.floor(Math.random() * cities.length)];
+
+            userEl.innerText = name + " (" + city + ")";
+            detailEl.innerText = "Purchased via UPI!";
+
+            toast.classList.remove('opacity-0', 'translate-y-10');
+            toast.classList.add('opacity-100', 'translate-y-0');
+
+            setTimeout(() => {
+                toast.classList.remove('opacity-100', 'translate-y-0');
+                toast.classList.add('opacity-0', 'translate-y-10');
+            }, 3000);
+
+            buyerIndex++;
+        }
+
+        setInterval(showPurchaseToast, 10000);
+        setTimeout(showPurchaseToast, 2000);
+
+        function payNow() {
+            const upiId = "9410851090-n532@ybl";
+            const payeeName = "Legal Blueprint";
+            const amount = "399.00";
+
+            let upiLink =
+                "upi://pay?pa=" + encodeURIComponent(upiId) +
+                "&pn=" + encodeURIComponent(payeeName) +
+                "&cu=INR";
+
+            if (amount !== "") {
+                upiLink += "&am=" + encodeURIComponent(amount);
+            }
+
+            window.location.href = upiLink;
+        }
+
+        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
+        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+    </script>
 </body>
-</html><style>
-    /* Phase 2: Advanced Styling */
-    .services-wrapper {
-        padding: 100px 8%;
-        background: #ffffff;
-        text-align: center;
-    }
-
-    .section-tag {
-        color: #d90429;
-        font-weight: 900;
-        text-transform: uppercase;
-        letter-spacing: 2px;
-        font-size: 0.9rem;
-        display: block;
-        margin-bottom: 10px;
-    }
-
-    .services-wrapper h2 {
-        font-family: 'Playfair Display', serif;
-        font-size: clamp(2rem, 4vw, 3rem);
-        color: #002d62;
-        margin-bottom: 60px;
-        line-height: 1.2;
-    }
-
-    .services-wrapper h2 span { color: #c5a059; }
-
-    /* The 15-Card Grid */
-    .grid-15 {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-        gap: 30px;
-    }
-
-    /* Card Animation & Design */
-    .card-legal {
-        background: #fff;
-        padding: 40px 30px;
-        border-radius: 25px;
-        text-align: left;
-        border: 1px solid #f0f0f0;
-        text-decoration: none;
-        color: inherit;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        position: relative;
-        overflow: hidden;
-        box-shadow: 0 10px 30px rgba(0,0,0,0.03);
-    }
-
-    /* Hover Effect: Border Glow & Lift */
-    .card-legal:hover {
-        transform: translateY(-15px);
-        box-shadow: 0 25px 50px rgba(0,45,98,0.15);
-        border-color: #c5a059;
-    }
-
-    .card-legal::before {
-        content: '';
-        position: absolute;
-        top: 0; left: 0; width: 100%; height: 5px;
-        background: linear-gradient(90deg, #002d62, #c5a059);
-        transform: scaleX(0);
-        transition: transform 0.4s ease;
-        transform-origin: left;
-    }
-
-    .card-legal:hover::before { transform: scaleX(1); }
-
-    .icon-box {
-        width: 60px; height: 60px;
-        background: #f8faff;
-        border-radius: 15px;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 2rem;
-        margin-bottom: 25px;
-        transition: 0.3s;
-    }
-
-    .card-legal:hover .icon-box {
-        background: #002d62;
-        transform: rotateY(360deg);
-    }
-
-    .card-legal h4 {
-        font-size: 1.4rem;
-        color: #002d62;
-        margin-bottom: 15px;
-        font-weight: 900;
-    }
-
-    .card-legal p {
-        font-size: 1rem;
-        color: #555;
-        font-weight: 600;
-        line-height: 1.6;
-        margin-bottom: 20px;
-    }
-
-    .action-link {
-        font-weight: 900;
-        color: #d90429;
-        font-size: 0.85rem;
-        text-transform: uppercase;
-        display: flex;
-        align-items: center;
-        gap: 5px;
-    }
-
-    /* Mobile Tweaks */
-    @media (max-width: 768px) {
-        .grid-15 { grid-template-columns: 1fr; }
-        .services-wrapper { padding: 60px 5%; }
-    }
-</style>
-
-<section class="services-wrapper">
-    <span class="section-tag">Our Legal Expertise</span>
-    <h2>आपकी हर समस्या का <span>100% कानूनी समाधान</span></h2>
-    
-    <div class="grid-15">
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">⚖️</div>
-                <h4>Court Marriage</h4>
-                <p>Special Marriage Act के तहत पूरी कानूनी प्रक्रिया और पक्का सर्टिफिकेट।</p>
-            </div>
-            <span class="action-link">नियम जानें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🛡️</div>
-                <h4>Police Protection</h4>
-                <p>High Court से Stay Order और 24 घंटे पुलिस सुरक्षा का इंतज़ाम।</p>
-            </div>
-            <span class="action-link">सुरक्षा लें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">☪️</div>
-                <h4>Muslim Nikah</h4>
-                <p>निकाहनामा और सरकारी रजिस्ट्रेशन—शरियत और कानून के साथ।</p>
-            </div>
-            <span class="action-link">प्रक्रिया देखें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🕉️</div>
-                <h4>Arya Samaj</h4>
-                <p>सिर्फ 2 घंटे में आर्य समाज मंदिर में विवाह और पक्का सर्टिफिकेट।</p>
-            </div>
-            <span class="action-link">बुक करें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🚫</div>
-                <h4>FIR Quashing</h4>
-                <p>धारा 363, 366 जैसी झूठी FIR को High Court से रद्द करवाएं।</p>
-            </div>
-            <span class="action-link">बचाव करें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🤝</div>
-                <h4>Inter-Religion</h4>
-                <p>बिना धर्म बदले कानूनी शादी और सुरक्षा। प्रेमी जोड़ों की पहली पसंद।</p>
-            </div>
-            <span class="action-link">कानूनी सलाह ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🏠</div>
-                <h4>Safe House</h4>
-                <p>जान का खतरा होने पर सुरक्षित और गुप्त जगह पर रहने का इंतज़ाम।</p>
-            </div>
-            <span class="action-link">मदद लें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">⚡</div>
-                <h4>Instant Registration</h4>
-                <p>मंदिर/मस्जिद में शादी कर चुके जोड़ों के लिए तुरंत सरकारी सर्टिफिकेट।</p>
-            </div>
-            <span class="action-link">रजिस्टर करें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🌎</div>
-                <h4>NRI Marriage</h4>
-                <p>विदेशी नागरिक या NRI के साथ शादी की पूरी लीगल फॉर्मेलिटी।</p>
-            </div>
-            <span class="action-link">डिटेल्स देखें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">🔓</div>
-                <h4>Anticipatory Bail</h4>
-                <p>गिरफ्तारी से बचने के लिए अग्रिम जमानत का तुरंत इंतज़ाम।</p>
-            </div>
-            <span class="action-link">जमानत लें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">📢</div>
-                <h4>Legal Defense</h4>
-                <p>घर वालों के लीगल नोटिस और धमकियों का कड़ा कानूनी जवाब।</p>
-            </div>
-            <span class="action-link">जवाब दें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">💔</div>
-                <h4>Mutual Divorce</h4>
-                <p>आपसी सहमति से तलाक की आसान और तेज कानूनी प्रक्रिया।</p>
-            </div>
-            <span class="action-link">परामर्श लें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">👥</div>
-                <h4>Witness Service</h4>
-                <p>कोर्ट मैरिज के लिए गवाह (Witness) न होने पर कानूनी सहायता।</p>
-            </div>
-            <span class="action-link">गवाह इंतज़ाम ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">📂</div>
-                <h4>Documentation</h4>
-                <p>शादी और सुरक्षा के लिए जरूरी कागजातों की पूरी जानकारी।</p>
-            </div>
-            <span class="action-link">लिस्ट देखें ➔</span>
-        </a>
-
-        <a href="#" class="card-legal">
-            <div>
-                <div class="icon-box">📜</div>
-                <h4>Habeas Corpus</h4>
-                <p>अगर पार्टनर को घर वालों ने कैद किया है, तो कोर्ट से तुरंत रिहाई।</p>
-            </div>
-            <span class="action-link">रिहा करवाएं ➔</span>
-        </a>
-    </div>
-</section><style>
-    .trust-section {
-        padding: 60px 8%;
-        background: #f8faff;
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 50px;
-        align-items: center;
-    }
-
-    /* Advocates Mini Bio */
-    .adv-mini-bio h3 {
-        font-family: 'Playfair Display', serif;
-        font-size: 2.2rem;
-        color: #002d62;
-        margin-bottom: 20px;
-    }
-    .adv-mini-bio p {
-        font-size: 1.1rem;
-        color: #4a5568;
-        margin-bottom: 25px;
-        line-height: 1.6;
-    }
-
-    /* Success Story Preview Card */
-    .success-preview {
-        background: #fff;
-        padding: 30px;
-        border-radius: 20px;
-        box-shadow: 0 15px 35px rgba(0,0,0,0.05);
-        border-left: 6px solid #c5a059;
-    }
-    .success-preview h4 {
-        color: #002d62;
-        margin-bottom: 10px;
-        font-size: 1.2rem;
-    }
-    .stars { color: #f1c40f; margin-bottom: 10px; display: block; }
-
-    /* Buttons */
-    .small-btn {
-        display: inline-block;
-        padding: 12px 25px;
-        border: 2px solid #002d62;
-        color: #002d62;
-        text-decoration: none;
-        font-weight: 700;
-        border-radius: 8px;
-        margin-right: 15px;
-        transition: 0.3s;
-    }
-    .small-btn:hover {
-        background: #002d62;
-        color: #fff;
-    }
-
-    @media (max-width: 900px) {
-        .trust-section { grid-template-columns: 1fr; text-align: center; }
-        .success-preview { text-align: left; }
-    }
-</style>
-
-<section class="trust-section">
-    <div class="adv-mini-bio">
-        <h3>अनुभवी कानूनी नेतृत्व</h3>
-        <p>एडवोकेट <b>विकास यादव</b> और <b>सौरभ यादव</b> ने पिछले 10 वर्षों में 1500+ से अधिक प्रेमी जोड़ों को सुरक्षित और कानूनी जीवन दिलाया है। हम कानून की ताकत से आपके प्यार को सुरक्षा प्रदान करते हैं।</p>
-        <a href="/about-advocates" class="small-btn">Advocates के बारे में जानें</a>
-    </div>
-
-    <div class="success-preview">
-        <span class="stars">★★★★★</span>
-        <h4>"हमारी जान बच गई..."</h4>
-        <p>"घर वालों ने FIR कर दी थी, लेकिन सर ने 24 घंटे में हाई कोर्ट से प्रोटेक्शन दिला दी। आज हम सुरक्षित हैं।"</p>
-        <p style="font-size: 0.8rem; margin-top: 10px; color: #888;">— राहुल और प्रीति (मेरठ)</p>
-        <br>
-        <a href="/success-stories" style="color: #d90429; font-weight: 900; text-decoration: none;">100+ और कहानियाँ पढ़ें ➔</a>
-    </div>
-</section><style>
-    /* 📱 Phase 4: Footer Styling */
-    footer {
-        background: #001a35;
-        color: #fff;
-        padding: 60px 8% 100px; /* Bottom padding zyada rakhi hai taaki buttons content na chupayein */
-        font-family: 'Inter', sans-serif;
-    }
-
-    .footer-grid {
-        display: grid;
-        grid-template-columns: 1.5fr 1fr 1fr 1.5fr;
-        gap: 40px;
-        margin-bottom: 40px;
-    }
-
-    .footer-col h4 {
-        color: #f1d392;
-        font-size: 1.2rem;
-        margin-bottom: 20px;
-        font-family: 'Playfair Display', serif;
-    }
-
-    .footer-links { list-style: none; }
-    .footer-links li { margin-bottom: 10px; }
-    .footer-links a { color: #cbd5e0; text-decoration: none; font-size: 0.9rem; transition: 0.3s; }
-    .footer-links a:hover { color: #f1d392; padding-left: 5px; }
-
-    /* 📞 Permanent Sticky Floating Buttons (Mobile Special) */
-    .sticky-actions {
-        position: fixed;
-        bottom: 20px;
-        left: 50%;
-        transform: translateX(-50%);
-        display: flex;
-        gap: 15px;
-        width: 90%;
-        max-width: 500px;
-        z-index: 9999;
-    }
-
-    .sticky-btn {
-        flex: 1;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        gap: 10px;
-        padding: 18px;
-        border-radius: 50px;
-        font-weight: 900;
-        font-size: 1.1rem;
-        text-decoration: none;
-        color: white;
-        box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-        transition: 0.3s;
-    }
-
-    .sticky-call { 
-        background: #d90429; /* Red for Urgency */
-        animation: shake 2s infinite;
-    }
-
-    .sticky-whatsapp { 
-        background: #25d366; /* Green for Ease */
-    }
-
-    @keyframes shake {
-        0%, 100% { transform: scale(1); }
-        10%, 30%, 50%, 70%, 90% { transform: scale(1.05); }
-        20%, 40%, 60%, 80% { transform: scale(1); }
-    }
-
-    .bottom-disclaimer {
-        text-align: center;
-        padding-top: 30px;
-        border-top: 1px solid rgba(255,255,255,0.1);
-        font-size: 0.75rem;
-        color: #718096;
-    }
-
-    @media (max-width: 900px) {
-        .footer-grid { grid-template-columns: 1fr; text-align: center; }
-        .footer-col { margin-bottom: 30px; }
-    }
-</style>
-
-<footer>
-    <div class="footer-grid">
-        <div class="footer-col">
-            <h4>Adv. V.k Yadav</h4>
-            <p style="font-size: 0.9rem; color: #cbd5e0;">हाई कोर्ट और सुप्रीम कोर्ट के अनुभवी वकीलों की टीम। हम आपके प्यार और हक की कानूनी लड़ाई लड़ते हैं।</p>
-            <p style="margin-top:15px; color:#f1d392;">📍 Allahabad High Court | New Delhi</p>
-        </div>
-
-        <div class="footer-col">
-            <h4>Main Pages</h4>
-            <ul class="footer-links">
-                <li><a href="/about-advocates">About Advocates</a></li>
-                <li><a href="/success-stories">Success Stories</a></li>
-                <li><a href="/court-marriage">Court Marriage</a></li>
-                <li><a href="/protection">Legal Protection</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
-            <h4>Support</h4>
-            <ul class="footer-links">
-                <li><a href="/documents">Required Documents</a></li>
-                <li><a href="/faq">Legal FAQs</a></li>
-                <li><a href="/privacy">Privacy Policy</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </div>
-
-        <div class="footer-col">
-            <h4 style="color:#25d366">Emergency Help</h4>
-            <p style="font-size: 0.85rem;">अगर अभी खतरा है, तो बिना सोचे हमें कॉल करें। आपकी कॉल पूरी तरह गुप्त रहेगी।</p>
-            <p style="font-size: 1.3rem; font-weight: 900; margin-top: 10px;">📞 9458005707</p>
-        </div>
-    </div>
-
-    <div class="bottom-disclaimer">
-        &copy; 2026 Adv. V.k Yadav. कानून की सुरक्षा, आपके प्यार का हक।
-    </div>
-</footer>
-
-<div class="sticky-actions">
-    <a href="tel:9458005707" class="sticky-btn sticky-call">
-        📞 CALL NOW
-    </a>
-    <a href="https://wa.me/919458005707" class="sticky-btn sticky-whatsapp">
-        💬 WHATSAPP
-    </a>
-</div>
+</html>
