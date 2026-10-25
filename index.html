@@ -1,315 +1,915 @@
 <!DOCTYPE html>
-<html lang="hi">
+<html lang="hi" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Fast-Track Divorce & 2X Maintenance Blueprint</title>
+    <title>Fast-Track Divorce & 2X Maintenance Blueprint + 1-on-1 Legal Consultancy</title>
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Font Awesome Icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;600;700&family=Poppins:wght@700;900&display=swap');
-        body { font-family: 'Hind', sans-serif; -webkit-tap-highlight-color: transparent; }
-        .heading-font { font-family: 'Poppins', sans-serif; }
-        .pulse-btn {
-            animation: pulse 1.5s infinite;
+        @import url('https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Poppins:wght@600;700;800;900&display=swap');
+        
+        body {
+            font-family: 'Hind', sans-serif;
+            -webkit-tap-highlight-color: transparent;
+            background-color: #090d16;
+            color: #f1f5f9;
         }
-        @keyframes pulse {
-            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0.7); }
-            70% { transform: scale(1.02); box-shadow: 0 0 0 12px rgba(147, 51, 234, 0); }
-            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(147, 51, 234, 0); }
+        
+        .heading-font {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        /* High-converting button animations */
+        .pulse-btn {
+            animation: pulseGlow 1.6s infinite;
+        }
+        @keyframes pulseGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0.75); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 14px rgba(168, 85, 247, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(168, 85, 247, 0); }
+        }
+
+        .pulse-amber {
+            animation: pulseAmberGlow 1.6s infinite;
+        }
+        @keyframes pulseAmberGlow {
+            0% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.75); }
+            70% { transform: scale(1.02); box-shadow: 0 0 0 14px rgba(245, 158, 11, 0); }
+            100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(245, 158, 11, 0); }
+        }
+
+        /* Shimmer effect for VIP Consultancy Card */
+        .shimmer-border {
+            background: linear-gradient(135deg, rgba(245,158,11,0.18) 0%, rgba(15,23,42,0.96) 50%, rgba(16,185,129,0.18) 100%);
+        }
+
+        /* Custom Scrollbar for Modal Boxes */
+        .modal-scroll::-webkit-scrollbar {
+            width: 5px;
+        }
+        .modal-scroll::-webkit-scrollbar-track {
+            background: #0f172a;
+            border-radius: 8px;
+        }
+        .modal-scroll::-webkit-scrollbar-thumb {
+            background: #475569;
+            border-radius: 8px;
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 antialiased pb-28">
+<body class="bg-slate-950 text-slate-100 antialiased pb-32 selection:bg-purple-600 selection:text-white">
 
-    <!-- Top Mobile Urgency Banner -->
-    <div class="bg-gradient-to-r from-red-700 via-purple-700 to-red-700 text-white text-center py-2 px-3 text-[11px] sm:text-xs font-bold uppercase tracking-wider sticky top-0 z-40 shadow-lg">
-        ⚡ Aakhri 7 Slots Baaki - Course @ Sirf ₹399 ⚡
+    <!-- 1. TOP STICKY URGENCY BAR WITH LIVE 15-MINUTE COUNTDOWN TIMER -->
+    <div class="bg-gradient-to-r from-red-700 via-purple-800 to-red-700 text-white py-2 px-3 sticky top-0 z-40 shadow-xl border-b border-amber-400/30">
+        <div class="max-w-md mx-auto flex items-center justify-between text-[11px] sm:text-xs font-extrabold tracking-wide">
+            <div class="flex items-center space-x-1.5">
+                <span class="inline-block w-2 h-2 rounded-full bg-amber-400 animate-ping"></span>
+                <span>⚡ Aakhri <span id="slotCount" class="text-amber-300 underline">7 Slots</span> Baaki - Offer Ends In</span>
+            </div>
+            <div class="bg-black/40 border border-amber-400/50 px-2 py-0.5 rounded-md text-amber-300 font-mono text-xs flex items-center space-x-1">
+                <i class="fa-regular fa-clock text-[10px]"></i>
+                <span id="countdownTimer">14:59</span>
+                <span>⚡</span>
+            </div>
+        </div>
     </div>
 
-    <!-- Live Purchase Toast -->
-    <div id="purchaseToast" class="fixed bottom-20 left-3 right-3 bg-slate-800 border-2 border-purple-500 text-white p-3 rounded-2xl shadow-2xl z-40 transition-all duration-500 opacity-0 transform translate-y-10 flex items-center space-x-3 max-w-sm mx-auto">
-        <div class="w-9 h-9 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-base shrink-0">
-            <i class="fa-solid fa-mobile-screen"></i>
+    <!-- 2. LIVE SOCIAL PROOF PURCHASE TOAST -->
+    <div id="purchaseToast" class="fixed bottom-24 left-3 right-3 bg-slate-900/95 border-2 border-purple-500 text-white p-3 rounded-2xl shadow-2xl z-40 transition-all duration-500 opacity-0 pointer-events-none transform translate-y-10 flex items-center space-x-3 max-w-sm mx-auto backdrop-blur-md">
+        <div class="w-10 h-10 rounded-full bg-gradient-to-br from-purple-600 to-amber-500 text-white flex items-center justify-center font-bold text-base shrink-0 shadow-md">
+            <i class="fa-solid fa-shield-halved"></i>
         </div>
-        <div class="overflow-hidden">
-            <p id="toastUser" class="font-bold text-xs text-amber-400 truncate"></p>
-            <p id="toastDetail" class="text-[10px] text-slate-300 truncate"></p>
+        <div class="overflow-hidden flex-1">
+            <div class="flex items-center justify-between">
+                <p id="toastUser" class="font-bold text-xs text-amber-400 truncate"></p>
+                <span class="text-[9px] bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 px-1.5 py-0.2 rounded font-semibold">Verified UPI</span>
+            </div>
+            <p id="toastDetail" class="text-[11px] text-slate-200 truncate mt-0.5"></p>
         </div>
     </div>
 
-    <!-- Main Mobile Container -->
-    <div class="max-w-md mx-auto px-4 py-6">
+    <!-- MAIN MOBILE CONTAINER -->
+    <div class="max-w-md mx-auto px-4 pt-5 pb-8">
 
-        <!-- Hero Section -->
-        <header class="text-center mb-6">
-            <span class="inline-block bg-purple-600/30 border border-purple-500 text-purple-300 font-bold px-3 py-1 rounded-full text-[11px] mb-3 uppercase tracking-wider">
-                💣 Secret Legal Victory Blueprint
+        <!-- 3. HERO SECTION -->
+        <header class="text-center mb-7">
+            <span class="inline-block bg-purple-950/90 border border-purple-500/80 text-purple-200 font-bold px-3.5 py-1 rounded-full text-[11px] mb-3 uppercase tracking-wider shadow-md">
+                💣 Secret Legal Victory Blueprint (Updated 2026 Edition)
             </span>
-            <h1 class="heading-font text-2xl sm:text-3xl font-extrabold text-white leading-tight mb-3">
+
+            <h1 class="heading-font text-2xl sm:text-3xl font-black text-white leading-tight mb-3">
                 Tareekh Par Tareekh Se Chutkara! <br/>
-                <span class="text-amber-400 underline decoration-purple-600">2-3 Court Dates Mein Case Close</span> Formula!
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-300 via-yellow-400 to-amber-500 underline decoration-purple-600">2-3 Court Dates Mein Case Close</span> Formula!
             </h1>
+
             <p class="text-slate-300 text-xs sm:text-sm leading-relaxed mb-5">
-                Lawyer Har Tareekh Ke ₹5,000 Leta Hai—Ye ₹399 Ka Formula Aapke Lakhon Rupaye Aur Saalon Ka Time Bachayega. Secret High Court & Supreme Court Legal Tactics!
+                Lawyer Har Tareekh Ke <span class="text-red-400 font-bold">₹5,000</span> Leta Hai—Ye <span class="text-amber-400 font-bold">₹399 Ka Formula</span> Aapke Lakhon Rupaye Aur Saalon Ka Time Bachayega.
             </p>
 
-            <!-- CTA BUTTON #1 (HERO) -->
-            <button onclick="payNow()" class="pulse-btn w-full bg-purple-600 active:bg-purple-700 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-xl flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-mobile-screen text-xl"></i>
-                <span>PAY ₹399 VIA UPI & GET ACCESS</span>
+            <!-- Primary CTA Button -->
+            <button onclick="openPaymentModal('Course Blueprint - ₹399')" class="pulse-btn w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 active:scale-95 text-white font-extrabold text-base py-4 px-4 rounded-2xl shadow-2xl flex items-center justify-center space-x-2 border border-purple-400/40">
+                <i class="fa-solid fa-qrcode text-amber-300 text-lg"></i>
+                <span>PAY ₹399 & GET ACCESS NOW</span>
             </button>
+
+            <p class="text-[11px] text-slate-400 mt-2.5 flex items-center justify-center space-x-3">
+                <span><i class="fa-solid fa-check-double text-emerald-400"></i> BNS/BNSS & CrPC Updated</span>
+                <span>•</span>
+                <span><i class="fa-solid fa-bolt text-amber-400"></i> Instant Digital Access</span>
+            </p>
+
+            <!-- Trust Metrics Strip -->
+            <div class="grid grid-cols-3 gap-2 mt-5">
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
+                    <p class="heading-font text-base font-black text-amber-400">14,200+</p>
+                    <p class="text-[10px] text-slate-400 leading-tight">Logon Ne Case Fast-Track Kiya</p>
+                </div>
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
+                    <p class="heading-font text-base font-black text-emerald-400">15+ Drafts</p>
+                    <p class="text-[10px] text-slate-400 leading-tight">Ready-To-File Court Applications</p>
+                </div>
+                <div class="bg-slate-900/90 border border-slate-800 rounded-xl p-2.5 text-center">
+                    <p class="heading-font text-base font-black text-purple-400">4.9/5 ⭐</p>
+                    <p class="text-[10px] text-slate-400 leading-tight">Husband & Wife Dono Ke Liye</p>
+                </div>
+            </div>
         </header>
 
-        <!-- Main Highlights Box -->
-        <div class="space-y-4 mb-6">
-            <!-- Highlight 1 -->
-            <div class="bg-slate-800 border-2 border-amber-500/50 rounded-2xl p-4 shadow-xl relative">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="w-9 h-9 rounded-lg bg-amber-500/20 text-amber-400 flex items-center justify-center font-bold text-lg shrink-0">⚡</div>
-                    <h3 class="text-base font-bold text-amber-400">2-3 Tarikh Divorce Strategy</h3>
+        <!-- 4. PAIN-POINT & REALITY CHECK BOX -->
+        <section class="mb-7">
+            <div class="bg-gradient-to-b from-red-950/75 to-slate-900 border-2 border-red-500/50 rounded-2xl p-4 shadow-xl">
+                <h2 class="heading-font text-sm sm:text-base font-extrabold text-amber-300 mb-2.5 flex items-start space-x-2">
+                    <i class="fa-solid fa-triangle-exclamation text-red-400 mt-1 shrink-0"></i>
+                    <span>Kya Aapka Vakeel Bhi Har Tareekh Pe Sirf Agli Tareekh Leke Aa Jata Hai?</span>
+                </h2>
+                <ul class="space-y-2 text-xs text-slate-200 leading-relaxed">
+                    <li class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold shrink-0">❌</span>
+                        <span><strong>4-5 Saal Case Kyun Khichta Hai?</strong> Kyunki 498A (85 BNS), 125 CrPC (144 BNSS), DV Act aur HMA Divorce mein jab tak Time-Bound Statutory Application nahi lagti, tab tak saamne wali party bahane bana kar tareekh badhwati rehti hai.</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold shrink-0">❌</span>
+                        <span><strong>Jhoota Income & Assets Affidavit:</strong> Court mein saamne wali party khud ko garib ya berozgar dikhati hai aur aam vakeel uspe <em>Perjury (Sec 340 CrPC / 379 BNSS)</em> ya <em>Bank Discovery</em> ki arzi hi nahi lagate!</span>
+                    </li>
+                    <li class="flex items-start space-x-2">
+                        <span class="text-red-400 font-bold shrink-0">❌</span>
+                        <span><strong>Har Hearing Ka ₹3,000–₹5,000 Kharcha:</strong> Jitni zyada tareekh padegi, aapki jeb se utne lakhon rupaye nikalenge aur mental tension alag!</span>
+                    </li>
+                </ul>
+                <div class="mt-3 pt-2.5 border-t border-red-500/30 text-[11px] sm:text-xs text-emerald-300 font-bold text-center">
+                    ✅ Ab Rukiye! Ye Blueprint Aapko Agli Hi Tareekh Par Case Palatne Ka Kanooni Hathiyar Dega!
                 </div>
-                <p class="text-slate-300 text-xs leading-relaxed mb-3">
-                    Court room ke wo unspoken tactics jisse saalon tak chalne waale divorce case ko <strong>sirf 2 se 3 hearings mein decisive conclusion</strong> par laaya ja sakta hai.
-                </p>
-                <button onclick="payNow()" class="w-full bg-purple-600 active:bg-purple-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-bolt"></i>
-                    <span>Unlock 2-3 Date Strategy @ ₹399</span>
-                </button>
+            </div>
+        </section>
+
+        <!-- 5. DUAL ADVANTAGE GRID (HUSBAND SIDE VS WIFE SIDE) -->
+        <section class="mb-7">
+            <div class="bg-slate-900 border border-slate-800 rounded-2xl p-4 shadow-xl">
+                <h2 class="heading-font text-sm sm:text-base font-extrabold text-center text-white mb-3">
+                    ⚖️ <span class="text-amber-400">Dual Advantage</span> — Husband Aur Wife Dono Ke Liye Brahmastra!
+                </h2>
+                <div class="grid grid-cols-1 gap-3 text-xs">
+                    <!-- Shield for Men/Husbands -->
+                    <div class="bg-slate-950 border border-blue-500/40 rounded-xl p-3.5">
+                        <p class="font-extrabold text-blue-400 text-xs sm:text-sm mb-1.5 flex items-center space-x-1.5">
+                            <i class="fa-solid fa-shield-halved"></i>
+                            <span>🛡️ Shield For Men / Husbands (Pati Paksh):</span>
+                        </p>
+                        <ul class="space-y-1.5 text-[11px] text-slate-300 leading-relaxed">
+                            <li>✔️ <strong>Jhoote 498A, DV & 2X-3X Fake Maintenance</strong> claims se turant bachav aur Zero/Minimum Maintenance ke Supreme Court citations.</li>
+                            <li>✔️ <strong>Rajnesh vs Neha Affidavit Traps:</strong> Wife ki chhupi hui qualification, job, bank statements aur UPI income ko court record par laane ka pakka format.</li>
+                            <li>✔️ <strong>Perjury Counter-Strike:</strong> Jhoota affidavit dene par opposite party par ulta criminal case (7 saal tak saza ka darr) bana kar turant settlement ke liye majboor karna.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Sword for Women/Wives -->
+                    <div class="bg-slate-950 border border-pink-500/40 rounded-xl p-3.5">
+                        <p class="font-extrabold text-pink-400 text-xs sm:text-sm mb-1.5 flex items-center space-x-1.5">
+                            <i class="fa-solid fa-gavel"></i>
+                            <span>⚔️ Sword For Women / Wives (Patni Paksh):</span>
+                        </p>
+                        <ul class="space-y-1.5 text-[11px] text-slate-300 leading-relaxed">
+                            <li>✔️ <strong>Pati Ki Chhupi Hui Income & Properties Expose Karna:</strong> PAN-linked accounts, GST, ITR aur family business ka sach court order se bahar nikalwana.</li>
+                            <li>✔️ <strong>60 Din Mein Interim Maintenance (अंतरिम खर्चा):</strong> Tareekh khichne se rokna aur Supreme Court mandate se 2X haq ka maintenance order karwana.</li>
+                            <li>✔️ <strong>Strict Recovery & Salary Attachment:</strong> Maintenance baki rakhne par seedha Salary/Account Freeze aur Warrant nikalwane ka ready draft.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. EXPANDED COURSE MODULES & 3 FREE BONUSES (VALUE ₹4,999 -> TODAY FREE) -->
+        <section class="bg-slate-900 border border-slate-700 rounded-2xl p-4 mb-7 shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3.5">
+                <h3 class="heading-font text-base font-extrabold text-white flex items-center space-x-2">
+                    <i class="fa-solid fa-folder-open text-amber-400"></i>
+                    <span>Course Ke Andar Kya Covered Hai:</span>
+                </h3>
+                <span class="bg-purple-600/30 border border-purple-500 text-purple-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full">4 Modules + 3 Bonuses</span>
             </div>
 
-            <!-- Highlight 2 -->
-            <div class="bg-slate-800 border-2 border-emerald-500/50 rounded-2xl p-4 shadow-xl relative">
-                <div class="flex items-center space-x-3 mb-2">
-                    <div class="w-9 h-9 rounded-lg bg-emerald-500/20 text-emerald-400 flex items-center justify-center font-bold text-lg shrink-0">💰</div>
-                    <h3 class="text-base font-bold text-emerald-400">2X Maintenance Claim Hacks</h3>
+            <div class="space-y-3 text-xs text-slate-300 mb-5">
+                <!-- Module 1 -->
+                <div class="bg-slate-950/90 p-3.5 rounded-xl border border-amber-500/30">
+                    <div class="flex items-center justify-between mb-1">
+                        <p class="font-bold text-amber-400 text-xs sm:text-sm">📌 Module 1: Fast-Track Proceeding & Adjournment Blocker Hacks</p>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-slate-300">Section 21B HMA & High Court Time-Bound Directions ka istemal karke opposite party ke bahane (Adjournments) band karwana aur 2-3 dates mein decisive hearing karwana.</p>
                 </div>
-                <p class="text-slate-300 text-xs leading-relaxed mb-3">
-                    Opposing party ke income & asset hiding ko expose karke court se <strong>maintenance amount 2 guna (Doguna)</strong> claim karne ka solid legal formula.
-                </p>
-                <button onclick="payNow()" class="w-full bg-purple-600 active:bg-purple-700 text-white font-bold py-2.5 px-3 rounded-lg text-xs flex items-center justify-center space-x-2">
-                    <i class="fa-solid fa-coins"></i>
-                    <span>Unlock 2X Maintenance Hack @ ₹399</span>
-                </button>
-            </div>
-        </div>
 
-        <!-- Detailed Course Modules Section -->
-        <div class="bg-slate-800/90 border border-slate-700 rounded-2xl p-4 mb-6 shadow-lg">
-            <h3 class="text-base font-bold text-white mb-3 border-b border-slate-700 pb-2 flex items-center space-x-2">
-                <i class="fa-solid fa-folder-open text-amber-400"></i>
-                <span>Course Ke Andar Kya Covered Hai:</span>
-            </h3>
-            <div class="space-y-2.5 text-xs text-slate-300 mb-4">
-                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-                    <p class="font-bold text-amber-400 mb-0.5">📌 Fast-Track Proceeding Hacks</p>
-                    <p class="text-[11px]">Unnecessary adjournments aur delays ko block karne ke High Court statutory procedures.</p>
+                <!-- Module 2 -->
+                <div class="bg-slate-950/90 p-3.5 rounded-xl border border-emerald-500/30">
+                    <div class="flex items-center justify-between mb-1">
+                        <p class="font-bold text-emerald-400 text-xs sm:text-sm">📌 Module 2: Secret Asset & Income Unmasking Formula</p>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-slate-300">9-Point Bank, ITR, GST, CIBIL & UPI Trail Check! Section 91 CrPC (94 BNSS) ke tahat court ke maadhyam se saamne wale ka poora kacha-chitha mangwane ka legal format.</p>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-                    <p class="font-bold text-emerald-400 mb-0.5">📌 Asset & Income Unmasking</p>
-                    <p class="text-[11px]">Opponent ke hidden bank accounts aur cash income ko court mein legally prove karne ka format.</p>
+
+                <!-- Module 3 -->
+                <div class="bg-slate-950/90 p-3.5 rounded-xl border border-purple-500/30">
+                    <div class="flex items-center justify-between mb-1">
+                        <p class="font-bold text-purple-400 text-xs sm:text-sm">📌 Module 3: Cross-Examination (Jirah) Ke 35 Brahmastra Sawaal</p>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-slate-300">Gawah aur opposite party se katghare mein puche jane wale wo 35 exact sawaal jisse unka jhoot 10 minute ke andar court record par pakda jata hai.</p>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-                    <p class="font-bold text-amber-400 mb-0.5">📌 Interim Relief Applications</p>
-                    <p class="text-[11px]">Pehli hi hearing mein emergency interim maintenance activate karne ka legal draft.</p>
+
+                <!-- Module 4 -->
+                <div class="bg-slate-950/90 p-3.5 rounded-xl border border-blue-500/30">
+                    <div class="flex items-center justify-between mb-1">
+                        <p class="font-bold text-blue-400 text-xs sm:text-sm">📌 Module 4: Out-of-Court Mutual Settlement & Permanent Quashing Blueprint</p>
+                    </div>
+                    <p class="text-[11px] leading-relaxed text-slate-300">Apni sharto par समझौता (MoU Draft) kaise banayein aur High Court se saare FIR/Cases hamesha ke liye Quash (Khatam) kaise karwayein taaki bhavishya mein dobara case na khule.</p>
                 </div>
-                <div class="bg-slate-900/60 p-3 rounded-xl border border-slate-700/50">
-                    <p class="font-bold text-emerald-400 mb-0.5">📌 Ready Court Draft Templates</p>
-                    <p class="text-[11px]">Ready-to-use notice, reply drafting, aur maintenance increase petitions.</p>
+
+                <!-- 3 Free Bonuses -->
+                <div class="bg-gradient-to-r from-amber-950/60 via-slate-900 to-amber-950/60 p-3.5 rounded-xl border-2 border-dashed border-amber-400/70">
+                    <p class="font-extrabold text-amber-300 text-xs sm:text-sm mb-2 flex items-center justify-between">
+                        <span>🎁 3 FREE BONUSES INCLUDED:</span>
+                        <span class="bg-amber-400 text-slate-950 text-[10px] font-black px-2 py-0.5 rounded">Value ₹4,999 → FREE</span>
+                    </p>
+                    <ul class="space-y-1.5 text-[11px] text-slate-200">
+                        <li>✨ <strong>Bonus #1:</strong> 15+ Ready-to-Use Court Application Formats (Word/PDF) — Bas Naam Bharein Aur File Karein.</li>
+                        <li>✨ <strong>Bonus #2:</strong> Supreme Court Landmark Judgments Cheat-Sheet (Maintenance, 498A, DV & Divorce).</li>
+                        <li>✨ <strong>Bonus #3:</strong> e-Courts Case Status & Daily Order Decoding Guide (Khud Apne Case Ki Monitoring Karein).</li>
+                    </ul>
                 </div>
             </div>
-            <button onclick="payNow()" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white font-extrabold text-xs py-3 px-3 rounded-xl shadow-lg flex items-center justify-center space-x-2">
+
+            <button onclick="openPaymentModal('Course Blueprint + 3 Bonuses - ₹399')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center space-x-2">
                 <i class="fa-solid fa-download"></i>
-                <span>DOWNLOAD COMPLETE MODULES VIA UPI (₹399)</span>
+                <span>DOWNLOAD COMPLETE MODULES (₹399)</span>
             </button>
-        </div>
+        </section>
 
-        <!-- Legal Consultancy & Advisory Section -->
-        <div class="bg-gradient-to-r from-slate-900 via-purple-950 to-slate-900 border-2 border-purple-500/60 rounded-2xl p-4 mb-6 shadow-2xl">
-            <div class="flex items-center space-x-3 mb-3">
-                <div class="w-10 h-10 rounded-xl bg-purple-600/30 border border-purple-500 flex items-center justify-center text-purple-400 font-bold text-xl shrink-0">
-                    <i class="fa-solid fa-user-shield"></i>
-                </div>
-                <div>
-                    <h3 class="text-base font-bold text-white leading-tight">1-on-1 Legal Strategy Advice</h3>
-                    <p class="text-[11px] text-purple-300">Course + Dedicated Support Guidance</p>
+        <!-- 7. COMPARISON TABLE: AAM VAKEEL VS ₹399 FAST-TRACK BLUEPRINT -->
+        <section class="mb-7">
+            <div class="bg-slate-900 border border-purple-500/40 rounded-2xl p-4 shadow-xl">
+                <h3 class="heading-font text-sm sm:text-base font-extrabold text-center text-white mb-1">
+                    📊 Khud Compare Karein: Paisa Aur Waqt Kahan Bach Raha Hai?
+                </h3>
+                <p class="text-[11px] text-slate-400 text-center mb-3">Ek samajhdar faisla aapke saalon ki pareshani khatam kar sakta hai</p>
+
+                <div class="overflow-hidden rounded-xl border border-slate-800 text-[11px]">
+                    <div class="grid grid-cols-2 bg-slate-950 font-extrabold border-b border-slate-800">
+                        <div class="p-2.5 text-red-400 border-r border-slate-800">
+                            ❌ Aam Vakeel Ki Tareekhein (₹50,000+ Kharcha)
+                        </div>
+                        <div class="p-2.5 text-emerald-400">
+                            ✅ ₹399 Fast-Track Blueprint
+                        </div>
+                    </div>
+                    <div class="grid grid-cols-2 border-b border-slate-800 bg-slate-900/60">
+                        <div class="p-2.5 text-slate-300 border-r border-slate-800">Har tareekh par ₹3,000–₹5,000 fees aur 3-5 saal ka lamba intezar.</div>
+                        <div class="p-2.5 text-slate-100 font-medium">Sirf ₹399 one-time aur 2-3 dates mein decisive legal action.</div>
+                    </div>
+                    <div class="grid grid-cols-2 border-b border-slate-800 bg-slate-900/30">
+                        <div class="p-2.5 text-slate-300 border-r border-slate-800">Oral arguments jinhe Judge sahab aksar record par nahi lete.</div>
+                        <div class="p-2.5 text-slate-100 font-medium">15+ Written Applications jin par Judge ko speaking order dena hi padta hai.</div>
+                    </div>
+                    <div class="grid grid-cols-2 bg-slate-900/60">
+                        <div class="p-2.5 text-slate-300 border-r border-slate-800">Jhoota affidavit dene par bhi saamne wali party aaram se ghoomti hai.</div>
+                        <div class="p-2.5 text-slate-100 font-medium">Sec 340 CrPC / 379 BNSS & Income Unmasking se turant backfoot par!</div>
+                    </div>
                 </div>
             </div>
-            <p class="text-xs text-slate-300 leading-relaxed mb-3">
-                Kya aapka case bohot complicated hai? Course ke saath-saath aapko milta hai legal team se strategy support jisse case pehli hearing se aapke favouable ho sake.
-            </p>
-            <button onclick="payNow()" class="w-full bg-purple-600 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
-                <i class="fa-solid fa-headset"></i>
-                <span>GET COURSE + CONSULTANCY ACCESS</span>
-            </button>
-        </div>
+        </section>
 
-        <!-- Price Callout Box -->
-        <div class="bg-gradient-to-r from-purple-950 via-slate-800 to-purple-950 border-2 border-purple-500 rounded-3xl p-5 text-center mb-6 shadow-2xl relative">
+        <!-- 8. NEW DEDICATED SECTION: VIP 1-ON-1 LEGAL STRATEGY CONSULTANCY (SAME PRICE @ SIRF ₹399!) -->
+        <section id="consultancySection" class="mb-7 relative">
+            <div class="shimmer-border border-2 border-amber-400 rounded-3xl p-5 shadow-2xl relative overflow-hidden">
+                <!-- Top Badge -->
+                <div class="bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 text-slate-950 font-black text-[10px] sm:text-xs px-3 py-1 rounded-full inline-flex items-center space-x-1.5 uppercase tracking-wider mb-3 shadow-md">
+                    <i class="fa-solid fa-user-tie"></i>
+                    <span>VIP 1-on-1 Legal Strategy Consultancy (Same Price @ Sirf ₹399!)</span>
+                </div>
+
+                <h2 class="heading-font text-xl sm:text-2xl font-black text-white leading-snug mb-2">
+                    Apne Case Ki File Humein Dikhayein Aur <span class="text-amber-400">Sahi Kanooni Raasta Janein!</span>
+                </h2>
+
+                <p class="text-xs text-slate-200 leading-relaxed mb-4">
+                    Jo log sirf PDF nahi balki apne case par <strong>Senior Legal Expert se 1-on-1 Personal Case Strategy & Next Date Action Plan</strong> chahte hain, wo bhi aaj sirf <span class="text-amber-400 font-extrabold underline">₹399</span> mein apni Consultation Slot book kar sakte hain <strong>(+ Course PDF & 15 Drafts FREE!)</strong>.
+                </p>
+
+                <!-- Features Included in ₹399 Consultancy -->
+                <div class="bg-slate-950/90 border border-amber-500/40 rounded-2xl p-3.5 mb-4 text-left space-y-2.5">
+                    <p class="text-xs font-extrabold text-amber-300 border-b border-slate-800 pb-1.5">
+                        🎯 ₹399 Ki 1-on-1 Consultancy Mein Kya Shamil Hai:
+                    </p>
+                    <div class="flex items-start space-x-2.5 text-[11px] sm:text-xs text-slate-200">
+                        <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>1-on-1 Telephonic / Audio Strategy Session:</strong> Senior Legal Strategy Expert ke saath aapke case par seedhi aur spasht baat-cheet.</span>
+                    </div>
+                    <div class="flex items-start space-x-2.5 text-[11px] sm:text-xs text-slate-200">
+                        <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Case File & Petition Defect Review:</strong> Opposite party ki petition aur affidavit mein chhupe kanooni loopholes ki pehchan.</span>
+                    </div>
+                    <div class="flex items-start space-x-2.5 text-[11px] sm:text-xs text-slate-200">
+                        <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>Agli Tareekh Par Kya Bolna Hai (Exact Script):</strong> Courtroom mein Judge sahab ke samne bolne aur application lagane ka poora roadmap.</span>
+                    </div>
+                    <div class="flex items-start space-x-2.5 text-[11px] sm:text-xs text-slate-200">
+                        <i class="fa-solid fa-circle-check text-emerald-400 mt-0.5 shrink-0"></i>
+                        <span><strong>+ Full Blueprint PDF & 15 Drafts FREE:</strong> Consultancy book karne par aapko ₹399 wala poora Course Blueprint aur 15+ Drafts bilkul muft milenge!</span>
+                    </div>
+                </div>
+
+                <!-- Value Comparison Strip -->
+                <div class="bg-slate-900/90 border border-slate-700 rounded-2xl p-3 mb-4 flex items-center justify-between">
+                    <div class="text-left">
+                        <span class="text-[10px] text-slate-400 uppercase font-bold block">1-on-1 Consultation + PDF Combo</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-slate-500 line-through text-base font-bold">₹2,499</span>
+                            <span class="text-2xl font-black text-amber-400">₹399 Only</span>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <span class="bg-emerald-500/20 border border-emerald-500 text-emerald-300 text-[10px] font-extrabold px-2.5 py-1 rounded-lg block">
+                            ⚡ Same Price Offer
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Dedicated Consultancy CTA Button -->
+                <button onclick="openPaymentModal('1-on-1 Legal Consultancy + Free PDF - ₹399')" class="pulse-amber w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-4 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2">
+                    <i class="fa-solid fa-headset text-base"></i>
+                    <span>BOOK 1-ON-1 CONSULTANCY + FREE PDF @ ₹399</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- 9. VERIFIED BUYER REVIEWS / TESTIMONIALS (3 REALISTIC HINGLISH REVIEWS) -->
+        <section class="mb-7">
+            <h3 class="heading-font text-base sm:text-lg font-extrabold text-center text-white mb-1">
+                ⭐ Verified Buyers & Clients Ka Anubhav
+            </h3>
+            <p class="text-[11px] text-slate-400 text-center mb-4">Hazaaron Logon Ne Apना Case Fast-Track Kiya Aur Lakhon Bachaye</p>
+
+            <div class="space-y-3">
+                <!-- Review 1 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-purple-600 flex items-center justify-center font-bold text-xs text-white">RV</div>
+                            <div>
+                                <p class="text-xs font-bold text-white">Rajeev Verma <span class="text-[10px] text-emerald-400 font-normal">✔ Verified Buyer</span></p>
+                                <p class="text-[10px] text-slate-400">Delhi • Husband Side (498A & 125 CrPC)</p>
+                            </div>
+                        </div>
+                        <span class="text-amber-400 text-xs">★★★★★</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">
+                        "Mera case 3 saal se chal raha tha aur vakeel har date pe ₹4,500 le leta tha. Is ₹399 ke blueprint se maine Adjournment Blocker aur Perjury format apne vakeel ko dekar file karwaya. Sirf 2 court dates mein saamne wali party ne bina ek rupaya liye mutual divorce sign kar liya!"
+                    </p>
+                </div>
+
+                <!-- Review 2 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-pink-600 flex items-center justify-center font-bold text-xs text-white">SS</div>
+                            <div>
+                                <p class="text-xs font-bold text-white">Sunita Sharma <span class="text-[10px] text-emerald-400 font-normal">✔ Verified Buyer</span></p>
+                                <p class="text-[10px] text-slate-400">Lucknow • Wife Side (2X Maintenance Order)</p>
+                            </div>
+                        </div>
+                        <span class="text-amber-400 text-xs">★★★★★</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">
+                        "Mere pati court mein apni salary sirf ₹15,000 dikha rahe the jabki unka bada kaam hai. Module 2 ke 9-Point Bank, ITR & UPI Trail format se court ne unke chhupe hue bank खाते mangwa liye aur 60 din mein mera ₹35,000/month interim maintenance order ho gaya!"
+                    </p>
+                </div>
+
+                <!-- Review 3 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-2xl p-3.5 shadow-lg">
+                    <div class="flex items-center justify-between mb-1.5">
+                        <div class="flex items-center space-x-2">
+                            <div class="w-8 h-8 rounded-full bg-amber-600 flex items-center justify-center font-bold text-xs text-white">MP</div>
+                            <div>
+                                <p class="text-xs font-bold text-white">Manish Tiwari <span class="text-[10px] text-emerald-400 font-normal">✔ Verified Buyer</span></p>
+                                <p class="text-[10px] text-slate-400">Jaipur • 1-on-1 Consultancy + Blueprint</p>
+                            </div>
+                        </div>
+                        <span class="text-amber-400 text-xs">★★★★★</span>
+                    </div>
+                    <p class="text-[11px] text-slate-300 leading-relaxed">
+                        "Maine ₹399 mein 1-on-1 Consultancy aur PDF liya. Senior expert ne meri file ki galtiyan batayi aur agli date ki exact script samjhayi. Cross-examination ke 35 sawaalon ne poora case meri taraf mod diya. ₹399 iske samne kuch bhi nahi hai."
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. MAIN PRICE OFFER CARD & INSTANT POST-PAYMENT UTR ACCESS SECTION -->
+        <section class="bg-gradient-to-r from-purple-950 via-slate-900 to-purple-950 border-2 border-purple-500 rounded-3xl p-5 text-center mb-6 shadow-2xl relative">
             <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white font-black text-[10px] px-3 py-0.5 rounded-full uppercase tracking-widest shadow">
                 Instant Access Offer
             </span>
-            <p class="text-slate-400 text-[10px] mb-1 uppercase font-semibold">Course Price Today</p>
-            <div class="flex items-center justify-center space-x-2 mb-4">
+            <p class="text-slate-400 text-[10px] mt-1 mb-1 uppercase font-semibold">Course Blueprint / 1-on-1 Consultancy Price Today</p>
+            <div class="flex items-center justify-center space-x-2.5 mb-4">
                 <span class="text-slate-500 line-through text-xl font-bold">₹1,999</span>
                 <span class="text-4xl font-black text-emerald-400">₹399</span>
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">80% OFF</span>
             </div>
-            <button onclick="payNow()" class="pulse-btn w-full bg-purple-600 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
-                <i class="fa-solid fa-mobile-screen"></i>
+            <button onclick="openPaymentModal('Course Blueprint + 1-on-1 Consultancy Offer - ₹399')" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
+                <i class="fa-solid fa-lock"></i>
                 <span>PAY ₹399 WITH UPI NOW</span>
             </button>
-            <button onclick="payNow()" class="w-full bg-slate-800 border border-purple-500/50 text-purple-300 font-bold text-xs py-2.5 px-3 rounded-lg flex items-center justify-center space-x-2">
-                <i class="fa-solid fa-qrcode"></i>
-                <span>Direct UPI Express (₹399)</span>
-            </button>
-        </div>
+            <p class="text-[10px] text-slate-400">100% Secure UPI Payment • Instant Verification</p>
+        </section>
 
-        <!-- FAQs Section -->
-        <div class="mb-6">
-            <h3 class="text-xl font-bold text-white text-center mb-4">
-                ❓ Frequently Asked Questions (FAQ)
-            </h3>
-            <div class="space-y-2.5 mb-4">
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
-                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Kya 2-3 tarikh mein divorce practical hai?</p>
-                    <p class="text-slate-300 text-[11px]">Sahi grounds aur High Court precedents submit karne par court fast-track decision deti hai.</p>
+        <!-- POST-PAYMENT ACCESS BOX WITH 12-DIGIT UPI UTR VERIFICATION -->
+        <section id="downloadSection" class="bg-emerald-950/80 border-2 border-emerald-500 rounded-2xl p-4 mb-7 shadow-2xl text-center">
+            <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-2 shadow-md">
+                <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="text-base font-bold text-emerald-400 mb-1">Payment Done? Verify UTR & Unlock Access</h3>
+            <p class="text-xs text-slate-300 mb-3">
+                ₹399 UPI Payment karne ke baad apna <strong>12-Digit UPI UTR / Reference Number</strong> neeche dalein. Verify hote hi PDF Download aur Consultancy Slot turant unlock ho jayega:
+            </p>
+
+            <!-- 12-Digit UTR Input Form -->
+            <div class="space-y-2.5 text-left mb-3">
+                <div>
+                    <label for="utrInput" class="block text-[11px] font-bold text-emerald-300 mb-1">
+                        Enter 12-Digit UPI UTR / Ref No. <span class="text-red-400">*</span>
+                    </label>
+                    <input id="utrInput" type="text" maxlength="12" inputmode="numeric" placeholder="Example: 412389012345" class="w-full bg-slate-900 border border-emerald-500/60 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono placeholder-slate-500 outline-none">
                 </div>
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
-                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Maintenance double (2X) kaise hota hai?</p>
-                    <p class="text-slate-300 text-[11px]">Opponents ke hidden income ko legal disclosures dwara expose karke court se double claim milta hai.</p>
-                </div>
-                <div class="bg-slate-800 border border-slate-700 rounded-xl p-3">
-                    <p class="font-bold text-amber-400 text-xs mb-1">Q: Payment ke baad PDF kaise milegi?</p>
-                    <p class="text-slate-300 text-[11px]">UPI Payment complete hote hi screen par direct Download Material button aa jayega.</p>
+                <div>
+                    <label for="slotMobileInput" class="block text-[11px] font-bold text-slate-300 mb-1">
+                        Your Mobile Number (Optional - For 1-on-1 Consultancy Call Slot)
+                    </label>
+                    <input id="slotMobileInput" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter 10-digit mobile number for call" class="w-full bg-slate-900 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
                 </div>
             </div>
-            <button onclick="payNow()" class="w-full bg-purple-600 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
-                <i class="fa-solid fa-lock"></i>
-                <span>GET INSTANT ACCESS VIA UPI (₹399)</span>
-            </button>
-        </div>
 
-        <!-- Footer -->
-        <footer class="border-t border-slate-800 pt-6 text-center text-[11px] text-slate-500">
-            <div class="flex flex-wrap justify-center gap-2 mb-3 text-slate-400">
-                <button onclick="openModal('contactModal')" class="hover:text-amber-400">Contact</button> |
-                <button onclick="openModal('privacyModal')" class="hover:text-amber-400">Privacy Policy</button> |
-                <button onclick="openModal('termsModal')" class="hover:text-amber-400">Terms</button> |
-                <button onclick="openModal('refundModal')" class="hover:text-amber-400">Refund Policy</button>
+            <p id="utrErrorMsg" class="text-[11px] text-red-400 font-bold mb-2.5 hidden">
+                ⚠️ Kripya Sahi 12-Digit Numeric UPI UTR / Reference Number Darj Karein!
+            </p>
+
+            <button onclick="verifyUtrAndUnlock()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl flex items-center justify-center space-x-2 transition">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>VERIFY 12-DIGIT UTR & UNLOCK NOW</span>
+            </button>
+
+            <!-- Hidden Unlocked Box (Revealed After Valid 12-Digit UTR Verification) -->
+            <div id="unlockedDownloadBox" class="hidden mt-4 pt-3.5 border-t border-emerald-500/40 space-y-2.5">
+                <div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
+                    ✅ UTR Verified Successfully! Aapka Course PDF Unlock Ho Gaya Hai Aur 1-on-1 Consultancy Slot Register Kar Liya Gaya Hai.
+                </div>
+                <a id="pdfDownloadBtn" href="YOUR_GOOGLE_DRIVE_PDF_LINK_HERE" target="_blank" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
+                    📥 DOWNLOAD COURSE PDF & 15+ DRAFTS NOW
+                </a>
             </div>
+        </section>
+
+        <!-- 11. INTERACTIVE PERSUASIVE FAQS (7 ACCORDION QUESTIONS) -->
+        <section id="faqSection" class="mb-8">
+            <div class="text-center mb-4">
+                <span class="bg-purple-900/50 border border-purple-500/50 text-purple-300 text-[10px] font-bold px-3 py-0.5 rounded-full uppercase">
+                    Doubts Clear Karein
+                </span>
+                <h3 class="heading-font text-lg font-extrabold text-white mt-1.5">
+                    ❓ Aksar Puche Jane Wale Sawal (FAQs)
+                </h3>
+            </div>
+
+            <div class="space-y-2.5">
+                <!-- FAQ 1 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(0)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>1. Mera vakeel pehle se hai to main ye ₹399 ka Blueprint kyun loon?</span>
+                        <i id="faqIcon-0" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300 rotate-180"></i>
+                    </button>
+                    <div id="faqBody-0" class="px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Kyunki vakeel ki kamai aapki "Tareekhon" se hoti hai, case jaldi khatam karne se nahi! Is Blueprint mein wo secret Time-Bound Applications, Perjury formats aur Cross-Examination ke 35 Brahmastra sawaal hain jo aap apne vakeel ko dekar agli hi date par file karwa sakte hain aur saalon ka case 2-3 dates mein palat sakte hain.
+                    </div>
+                </div>
+
+                <!-- FAQ 2 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>2. Kya ye Blueprint Husband aur Wife dono ke kaam aayega?</span>
+                        <i id="faqIcon-1" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-1" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Haan, 100%! Isme Husband Side ke liye Jhoote 498A, DV aur Fake Maintenance se bachav ka "Shield Formula" hai, aur Wife Side ke liye Pati ki chhupi hui income/property expose karke 60 din mein 2X Interim Maintenance order karwane ka "Sword Formula" diya gaya hai.
+                    </div>
+                </div>
+
+                <!-- FAQ 3 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>3. ₹399 wali 1-on-1 Legal Consultancy kaise hogi?</span>
+                        <i id="faqIcon-2" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-2" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Bahut aasan hai! Aap ₹399 UPI payment karne ke baad upar diye gaye Verification Box mein apna 12-Digit UTR Number aur Mobile Number darj karenge. Aapka Consultancy Slot turant confirm ho jayega, Free Course PDF wahin unlock ho jayega, aur hamare Senior Legal Expert aapse 1-on-1 Audio/Telephonic session par aapke case ki strategy discuss karenge.
+                    </div>
+                </div>
+
+                <!-- FAQ 4 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>4. Kya ye Naye Kanoon (BNS / BNSS 2026) ke hisab se updated hai?</span>
+                        <i id="faqIcon-3" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-3" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Bilkul! Ye Updated 2026 Edition hai. Chahe aapka case purane CrPC/IPC (125 CrPC, 340 CrPC, 498A IPC) mein chal raha ho ya naye BNSS/BNS (144 BNSS, 379 BNSS, 85 BNS) aur Hindu Marriage Act mein—dono ke exact sections aur Supreme Court judgments isme shamil hain.
+                    </div>
+                </div>
+
+                <!-- FAQ 5 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(4)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>5. Kya meri Privacy aur Case Details 100% safe rahengi?</span>
+                        <i id="faqIcon-4" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-4" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        100% Guaranteed! Aapki pehchan, payment aur case se judi har baat poori tarah Gopniya (Confidential) rakhi jaati hai. Kisi bhi third-party ya opposite party ko kabhi pata nahi chalega.
+                    </div>
+                </div>
+
+                <!-- FAQ 6 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(5)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>6. Payment karne ke baad PDF aur 15+ Drafts kaise milenge?</span>
+                        <i id="faqIcon-5" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-5" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Jaise hi aap kisi bhi UPI App (GPay, PhonePe, Paytm) se ₹399 pay karke apna 12-Digit UTR number upar verify karenge, usi second screen par Direct Download Button khul jayega jahan se aap poora Course PDF aur 15+ Editable Drafts apne phone mein save kar sakte hain.
+                    </div>
+                </div>
+
+                <!-- FAQ 7 -->
+                <div class="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden">
+                    <button onclick="toggleFaq(6)" class="w-full text-left p-3.5 flex items-center justify-between font-bold text-xs sm:text-sm text-amber-300">
+                        <span>7. Kya isko samajhne ke liye kanooni padhai (LLB) zaroori hai?</span>
+                        <i id="faqIcon-6" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
+                    </button>
+                    <div id="faqBody-6" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
+                        Bilkul nahi! Poora course aasan bol-chal ki Hindi / Hinglish mein banaya gaya hai taaki koi bhi vyakti bina kisi kanooni degree ke 30 minute mein padh kar apne case ka poora control apne haath mein le sake.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SUBTLE MINIMALIST FOOTER (ZERO VISIBLE PHONE/EMAIL/WHATSAPP ON MAIN SCREEN) -->
+        <footer class="border-t border-slate-800/80 pt-6 pb-4 text-center text-[11px] text-slate-500 space-y-2">
             <p>© 2026 Legal Fast-Track Consultancy.</p>
+            <div class="flex flex-wrap items-center justify-center gap-x-2 gap-y-1 text-[10px] text-slate-500">
+                <button onclick="openInfoModal('privacy')" class="hover:text-slate-300 transition">Privacy Policy</button>
+                <span>•</span>
+                <button onclick="openInfoModal('refund')" class="hover:text-slate-300 transition">Refund Policy</button>
+                <span>•</span>
+                <button onclick="openInfoModal('terms')" class="hover:text-slate-300 transition">Terms & Conditions</button>
+                <span>•</span>
+                <button onclick="openInfoModal('contact')" class="hover:text-slate-300 transition">Contact Us</button>
+            </div>
         </footer>
     </div>
 
-    <!-- MOBILE FLOATING PAYMENT BAR -->
-    <div class="fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t-2 border-purple-500 p-2.5 z-50 backdrop-blur-md shadow-2xl">
-        <div class="max-w-md mx-auto flex items-center justify-between space-x-2">
-            <div>
-                <span class="text-[9px] text-slate-400 block uppercase font-bold">Limited Offer</span>
-                <div class="flex items-center space-x-1.5">
-                    <span class="text-xl font-black text-emerald-400">₹399</span>
-                    <span class="text-slate-500 line-through text-[10px] font-bold">₹1,999</span>
-                </div>
+    <!-- ===================================================================== -->
+    <!-- 12. UPI PAYMENT MODAL (#paymentModal)                                 -->
+    <!-- ===================================================================== -->
+    <div id="paymentModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border-2 border-purple-500 rounded-3xl max-w-sm w-full p-5 text-center relative shadow-2xl">
+            <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark text-lg"></i>
+            </button>
+
+            <span class="inline-block bg-purple-600/20 border border-purple-500/50 text-purple-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase mb-1">
+                🔒 Instant UPI Verification
+            </span>
+            <h3 class="heading-font text-lg font-bold text-amber-400 mb-0.5">Scan & Pay ₹399</h3>
+            <p id="modalPlanTitle" class="text-[11px] text-emerald-300 font-semibold mb-1">Course Blueprint - ₹399</p>
+            <p class="text-[11px] text-slate-400 mb-3">Google Pay, PhonePe, Paytm, ya kisi bhi App se Scan Karein</p>
+
+            <!-- Dynamic QR Code (Auto-generated for ₹399) -->
+            <div class="bg-white p-3 rounded-2xl inline-block mb-3 shadow-lg">
+                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=9410851090-n532@ybl%26pn=VIKAS%20YADAV%26am=399.00%26cu=INR" alt="UPI QR Code" class="w-40 h-40 mx-auto" onerror="this.src='https://placehold.co/180x180/ffffff/0f172a?text=Pay+Rs.399+UPI'">
             </div>
-            <button onclick="payNow()" class="pulse-btn bg-purple-600 active:bg-purple-700 text-white font-extrabold text-xs py-2.5 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
+
+            <p class="text-[11px] text-slate-400 mb-2">Ya App Se Direct Open Karein:</p>
+            <button onclick="payDirectUPI()" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2.5 px-3 rounded-xl text-xs mb-3 flex items-center justify-center space-x-2 shadow-lg">
                 <i class="fa-solid fa-mobile-screen"></i>
-                <span>PAY VIA UPI</span>
+                <span>Open UPI App Direct (₹399)</span>
+            </button>
+
+            <!-- Copy UPI ID Option (Failsafe) -->
+            <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl flex items-center justify-between mb-2">
+                <span class="text-xs text-amber-400 font-mono font-bold">9410851090-n532@ybl</span>
+                <button onclick="copyUPI()" class="bg-slate-700 hover:bg-slate-600 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold">
+                    <i class="fa-regular fa-copy"></i> Copy UPI
+                </button>
+            </div>
+            <p id="copyAlert" class="text-[10px] text-emerald-400 font-semibold mt-1 hidden">✅ UPI ID Copied Successfully!</p>
+
+            <button onclick="goToUtrVerification()" class="w-full mt-2 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 font-bold text-[11px] py-2 px-3 rounded-xl">
+                Payment Kar Diya? Click Here To Enter 12-Digit UTR →
             </button>
         </div>
     </div>
 
-    <!-- Modals (Policies) -->
-    <div id="contactModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative">
-            <button onclick="closeModal('contactModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
-            <h3 class="text-lg font-bold text-amber-400 mb-2">Contact Support</h3>
-            <div class="space-y-1.5 text-xs">
-                <p><strong>📧 Email:</strong> support@legalfasttrack.in</p>
-                <p><strong>💬 WhatsApp:</strong> +91 98765 43210</p>
+    <!-- ===================================================================== -->
+    <!-- POPUP MODAL (#infoModal) FOR PRIVACY, REFUND, TERMS & CONTACT US      -->
+    <!-- (ONLY VISIBLE WHEN USER CLICKS THE 4 FOOTER LINKS)                    -->
+    <!-- ===================================================================== -->
+    <div id="infoModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
+        <div class="bg-slate-900 border-2 border-slate-700 rounded-3xl max-w-md w-full p-5 relative shadow-2xl">
+            <div class="flex items-center justify-between border-b border-slate-800 pb-3 mb-3">
+                <h3 id="infoModalTitle" class="heading-font text-sm sm:text-base font-extrabold text-amber-400">
+                    Information
+                </h3>
+                <button onclick="closeInfoModal()" class="w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
+                    <i class="fa-solid fa-xmark text-lg"></i>
+                </button>
             </div>
+
+            <!-- Modal Switcher Pills inside Popup -->
+            <div class="grid grid-cols-4 gap-1 bg-slate-950 p-1 rounded-xl border border-slate-800 mb-3 text-[10px] font-bold text-center">
+                <button onclick="openInfoModal('privacy')" id="modalTab-privacy" class="py-1.5 px-1 rounded-lg bg-purple-600 text-white truncate">Privacy</button>
+                <button onclick="openInfoModal('refund')" id="modalTab-refund" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">Refund</button>
+                <button onclick="openInfoModal('terms')" id="modalTab-terms" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">Terms</button>
+                <button onclick="openInfoModal('contact')" id="modalTab-contact" class="py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate">Contact Us</button>
+            </div>
+
+            <!-- Dynamic Modal Body -->
+            <div id="infoModalBody" class="modal-scroll max-h-[65vh] overflow-y-auto bg-slate-950 border border-slate-800 rounded-2xl p-3.5 text-xs text-slate-300 leading-relaxed space-y-3">
+                <!-- Populated dynamically via JS when footer link is clicked -->
+            </div>
+
+            <button onclick="closeInfoModal()" class="w-full mt-3 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 rounded-xl">
+                Close Window
+            </button>
         </div>
     </div>
 
-    <div id="privacyModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
-            <button onclick="closeModal('privacyModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
-            <h3 class="text-lg font-bold text-amber-400 mb-2">Privacy Policy</h3>
-            <p class="text-[10px] text-slate-300">Data is 100% secure and encrypted.</p>
+    <!-- ===================================================================== -->
+    <!-- 13. STICKY BOTTOM FLOATING PAYMENT BAR FOR MOBILE                     -->
+    <!-- ===================================================================== -->
+    <div class="fixed bottom-0 left-0 right-0 bg-slate-900/95 border-t-2 border-purple-500 p-2.5 z-40 backdrop-blur-md shadow-2xl">
+        <div class="max-w-md mx-auto flex items-center justify-between space-x-2">
+            <div>
+                <span class="text-[9px] text-amber-400 block uppercase font-bold tracking-wider">Course / Consultancy Offer</span>
+                <div class="flex items-center space-x-1.5">
+                    <span class="text-xl font-black text-emerald-400">₹399</span>
+                    <span class="text-slate-500 line-through text-[10px] font-bold">₹1,999</span>
+                    <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold px-1.5 py-0.2 rounded">80% OFF</span>
+                </div>
+            </div>
+            <button onclick="openPaymentModal('Course Blueprint + Consultancy Offer - ₹399')" class="pulse-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 active:bg-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
+                <i class="fa-solid fa-bolt text-amber-300"></i>
+                <span>PAY ₹399 VIA UPI</span>
+            </button>
         </div>
     </div>
 
-    <div id="termsModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
-            <button onclick="closeModal('termsModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
-            <h3 class="text-lg font-bold text-amber-400 mb-2">Terms & Conditions</h3>
-            <p class="text-[10px] text-slate-300">Course provides educational strategy guidance.</p>
-        </div>
-    </div>
-
-    <div id="refundModal" class="fixed inset-0 bg-black/80 z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-800 text-slate-200 p-5 rounded-2xl max-w-sm w-full relative max-h-[75vh] overflow-y-auto">
-            <button onclick="closeModal('refundModal')" class="absolute top-3 right-3 text-slate-400 hover:text-white">✕</button>
-            <h3 class="text-lg font-bold text-amber-400 mb-2">Refund Policy</h3>
-            <p class="text-[10px] text-slate-300">Instant PDF download nature applies.</p>
-        </div>
-    </div>
-
-    <!-- JavaScript Logic & UPI Payment Integration -->
     <script>
-        const names = [
-            "Amit Sharma", "Rahul Verma", "Priya Singh", "Vikram Patel", "Rajesh Kumar",
-            "Neha Gupta", "Suresh Yadav", "Ankit Mishra", "Pooja Reddy", "Deepak Joshi"
+        // 1. Live 15-Minute Countdown Timer
+        let remainingSeconds = 14 * 60 + 59;
+        const countdownEl = document.getElementById('countdownTimer');
+        setInterval(() => {
+            if (remainingSeconds <= 0) {
+                remainingSeconds = 14 * 60 + 59;
+            } else {
+                remainingSeconds--;
+            }
+            const m = String(Math.floor(remainingSeconds / 60)).padStart(2, '0');
+            const s = String(remainingSeconds % 60).padStart(2, '0');
+            if (countdownEl) countdownEl.innerText = m + ":" + s;
+        }, 1000);
+
+        // 2. Social Proof Live Purchase Toast
+        const recentBuyers = [
+            { name: "Amit Sharma", city: "Delhi", detail: "Purchased Blueprint PDF via UPI (₹399)" },
+            { name: "Rahul Verma", city: "Lucknow", detail: "Booked 1-on-1 Legal Consultancy (₹399)" },
+            { name: "Priya Singh", city: "Mumbai", detail: "Unlocked 2X Maintenance Drafts (₹399)" },
+            { name: "Vikram Patel", city: "Jaipur", detail: "Booked 1-on-1 Strategy Session (₹399)" },
+            { name: "Rajesh Kumar", city: "Bengaluru", detail: "Purchased Fast-Track Course via UPI (₹399)" },
+            { name: "Neha Gupta", city: "Indore", detail: "Booked Consultancy + Free PDF (₹399)" }
         ];
-        const cities = ["Delhi", "Mumbai", "Bengaluru", "Lucknow", "Jaipur", "Ahmedabad", "Pune", "Indore"];
         let buyerIndex = 0;
 
         function showPurchaseToast() {
             const toast = document.getElementById('purchaseToast');
             const userEl = document.getElementById('toastUser');
             const detailEl = document.getElementById('toastDetail');
+            const item = recentBuyers[buyerIndex % recentBuyers.length];
 
-            const name = names[buyerIndex % names.length];
-            const city = cities[Math.floor(Math.random() * cities.length)];
-
-            userEl.innerText = name + " (" + city + ")";
-            detailEl.innerText = "Purchased via UPI!";
-
+            userEl.innerText = item.name + " (" + item.city + ")";
+            detailEl.innerText = item.detail;
             toast.classList.remove('opacity-0', 'translate-y-10');
             toast.classList.add('opacity-100', 'translate-y-0');
 
             setTimeout(() => {
                 toast.classList.remove('opacity-100', 'translate-y-0');
                 toast.classList.add('opacity-0', 'translate-y-10');
-            }, 3000);
+            }, 3500);
 
             buyerIndex++;
         }
-
+        setTimeout(showPurchaseToast, 4000);
         setInterval(showPurchaseToast, 10000);
-        setTimeout(showPurchaseToast, 2000);
 
-        function payNow() {
-            const upiId = "9410851090-n532@ybl";
-            const payeeName = "Legal Blueprint";
-            const amount = "399.00";
-
-            let upiLink =
-                "upi://pay?pa=" + encodeURIComponent(upiId) +
-                "&pn=" + encodeURIComponent(payeeName) +
-                "&cu=INR";
-
-            if (amount !== "") {
-                upiLink += "&am=" + encodeURIComponent(amount);
+        // 3. UPI Payment Modal Controls
+        function openPaymentModal(planTitle) {
+            if (planTitle) {
+                const titleEl = document.getElementById('modalPlanTitle');
+                if (titleEl) titleEl.innerText = planTitle;
             }
+            document.getElementById('paymentModal').classList.remove('hidden');
+        }
 
+        function closePaymentModal() {
+            document.getElementById('paymentModal').classList.add('hidden');
+        }
+
+        function payDirectUPI() {
+            const upiLink = "upi://pay?pa=9410851090-n532@ybl&pn=VIKAS%20YADAV&am=399.00&cu=INR";
             window.location.href = upiLink;
         }
 
-        function openModal(id) { document.getElementById(id).classList.remove('hidden'); }
-        function closeModal(id) { document.getElementById(id).classList.add('hidden'); }
+        function fallbackCopy(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            ta.style.position = 'fixed';
+            ta.style.opacity = '0';
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            try {
+                document.execCommand('copy');
+            } catch (e) {}
+            document.body.removeChild(ta);
+        }
+
+        function copyUPI() {
+            const id = "9410851090-n532@ybl";
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(id).catch(() => fallbackCopy(id));
+            } else {
+                fallbackCopy(id);
+            }
+            const copyAlert = document.getElementById('copyAlert');
+            copyAlert.classList.remove('hidden');
+            setTimeout(() => copyAlert.classList.add('hidden'), 2500);
+        }
+
+        function goToUtrVerification() {
+            closePaymentModal();
+            const dlSec = document.getElementById('downloadSection');
+            if (dlSec) dlSec.scrollIntoView({ behavior: 'smooth' });
+            setTimeout(() => {
+                const utrInput = document.getElementById('utrInput');
+                if (utrInput) utrInput.focus();
+            }, 500);
+        }
+
+        // 4. 12-Digit UPI UTR Verification Logic
+        function verifyUtrAndUnlock() {
+            const utrVal = (document.getElementById('utrInput').value || '').trim();
+            const errEl = document.getElementById('utrErrorMsg');
+            const unlockBox = document.getElementById('unlockedDownloadBox');
+
+            // Validate 12-digit numeric UTR
+            if (!/^\d{12}$/.test(utrVal)) {
+                errEl.classList.remove('hidden');
+                unlockBox.classList.add('hidden');
+                return;
+            }
+
+            errEl.classList.add('hidden');
+            unlockBox.classList.remove('hidden');
+        }
+
+        // 5. FAQ Accordion Logic
+        function toggleFaq(index) {
+            const body = document.getElementById('faqBody-' + index);
+            const icon = document.getElementById('faqIcon-' + index);
+            if (!body) return;
+            const isHidden = body.classList.contains('hidden');
+            if (isHidden) {
+                body.classList.remove('hidden');
+                if (icon) icon.classList.add('rotate-180');
+            } else {
+                body.classList.add('hidden');
+                if (icon) icon.classList.remove('rotate-180');
+            }
+        }
+
+        // 6. Popup Modal (#infoModal) Content for Privacy, Refund, Terms & Contact Us
+        // Constructed dynamically only when a user clicks one of the 4 footer links
+        const modalData = {
+            privacy: {
+                title: "🔒 Comprehensive Privacy Policy",
+                html: `
+                    <p class="text-[11px] text-amber-300 font-bold">Effective Date: January 2026 | DPDP Act 2023 & IT Act 2000 Compliant</p>
+                    <p><strong>1. Strict Confidentiality & Anonymity Mandate:</strong> We recognize that matrimonial, divorce, maintenance (Sec 125 CrPC / Sec 144 BNSS), DV Act, and 498A/85 BNS proceedings are highly sensitive personal matters. Every piece of information you share with Legal Fast-Track Consultancy is treated with absolute confidentiality.</p>
+                    <p><strong>2. Information We Collect:</strong> When you purchase the ₹399 Blueprint or book a ₹399 1-on-1 Legal Strategy Consultancy slot, we collect only minimal details necessary for service delivery—such as your 12-digit UPI UTR reference number, optional callback mobile number, and case facts voluntarily shared during your consultation session.</p>
+                    <p><strong>3. UPI & Financial Security:</strong> All ₹399 payments are processed directly through NPCI-certified UPI applications (Google Pay, PhonePe, Paytm, BHIM). We NEVER collect, view, or store your bank account numbers, UPI PINs, or card credentials on our platform.</p>
+                    <p><strong>4. Zero Third-Party Sharing Guarantee:</strong> We strictly DO NOT sell, rent, trade, or disclose your identity, phone number, email address, or case strategy to any third-party marketing agency, data broker, or external entity.</p>
+                    <p><strong>5. Protection Against Opposite Party Disclosure:</strong> Under no circumstances will your consultation notes, downloaded templates, or personal details ever be disclosed to your spouse, opposite party, or opposite counsel.</p>
+                    <p><strong>6. Data Encryption & Secure Access:</strong> Our web interface utilizes encrypted HTTPS protocols and secure cloud links for digital PDF delivery. Any case petitions reviewed during 1-on-1 sessions are kept strictly restricted.</p>
+                    <p><strong>7. Data Retention & Instant Purge Right:</strong> Consultation records are retained solely until your session is completed. You have the right to request permanent deletion of your data at any time after your session.</p>
+                    <p><strong>8. DigitalPersonal Data Protection Act (DPDP Act 2023) Compliance:</strong> In accordance with Indian data protection laws, your data is processed solely on the basis of your explicit consent for delivering the requested legal educational material and strategy session.</p>
+                    <p><strong>9. Consent & Policy Updates:</strong> By accessing this platform and verifying your UTR, you consent to this privacy framework. For any privacy grievance, please view the Contact Us tab inside this window.</p>
+                `
+            },
+            refund: {
+                title: "🛡️ Refund & Cancellation Policy",
+                html: `
+                    <p class="text-[11px] text-emerald-300 font-bold">Strict Digital Product & Consultancy Slot Booking Rules</p>
+                    <p><strong>1. Non-Refundable Digital Download Policy:</strong> The <em>Fast-Track Divorce & 2X Maintenance Blueprint</em> (including the 4 Core Modules and 15+ Ready-to-Use Court Application Formats) is an instant-access digital downloadable product offered at a heavily discounted price of ₹399. Due to the immediate, irreversible nature of digital PDF downloads and proprietary legal templates, all completed purchases are final and non-refundable once unlocked or delivered.</p>
+                    <p><strong>2. 1-on-1 Consultancy Slot Booking Rules:</strong> When you book the ₹399 1-on-1 Legal Strategy Consultancy, a dedicated senior expert slot is reserved for your case. You may request a one-time rescheduling of your telephonic consultation slot if needed, provided you notify our support desk prior to the scheduled call.</p>
+                    <p><strong>3. Duplicate Payment Resolution:</strong> If your ₹399 UPI payment is accidentally deducted twice from your bank account due to a banking or UPI server timeout, 100% of the duplicate extra payment will be refunded to your original UPI ID within 24–48 hours upon verification of both 12-digit UTR numbers.</p>
+                    <p><strong>4. Technical Delivery Assurance:</strong> In the rare event that you face a technical browser issue after entering your 12-digit UTR number, our support team will manually verify your UTR and deliver your complete PDF Blueprint & Draft package directly.</p>
+                `
+            },
+            terms: {
+                title: "⚖️ Terms & Conditions",
+                html: `
+                    <p class="text-[11px] text-purple-300 font-bold">User Agreement & Legal Disclaimer</p>
+                    <p><strong>1. Educational & Strategic Empowerment Nature:</strong> The Fast-Track Divorce & 2X Maintenance Blueprint, court application formats, cross-examination questionnaires, and 1-on-1 strategy sessions are designed for legal awareness, procedural education, and litigant empowerment. While our drafts cite authentic statutory provisions and Supreme Court rulings, final judicial outcomes always depend on the facts of each case and the discretion of the Hon'ble Court.</p>
+                    <p><strong>2. Applicability Across BNS, BNSS, CrPC, IPC & HMA:</strong> All procedural modules and templates cover both legacy statutes (CrPC 125, Sec 340, IPC 498A) and the updated Bharatiya Nyaya Sanhita (BNS), Bharatiya Nagarik Suraksha Sanhita (BNSS), Hindu Marriage Act (HMA), and Domestic Violence Act provisions applicable in Indian courts.</p>
+                    <p><strong>3. Copyright & Single-User License:</strong> All PDF modules, checklists, and 15+ application formats are copyrighted intellectual property of Legal Fast-Track Consultancy. Purchasing at ₹399 grants you a single-user personal license for your own case. Commercial reselling, public sharing, or unauthorized distribution is strictly prohibited.</p>
+                    <p><strong>4. Ethical & Lawful Compliance:</strong> Users agree to utilize these statutory drafts and legal remedies truthfully and lawfully before the courts. By proceeding with the ₹399 payment, you confirm that you have read and agreed to these Terms & Conditions.</p>
+                `
+            },
+            contact: {
+                title: "📞 Contact Us & Support Desk",
+                html: `
+                    <div class="bg-slate-900 border border-slate-800 rounded-xl p-3.5 space-y-3">
+                        <p class="text-[11px] text-slate-300">For order assistance, UTR verification help, or 1-on-1 Consultancy slot coordination, you can reach our official support desk using the details below:</p>
+                        
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Helpline / Support Number</p>
+                            <p class="text-sm font-extrabold text-amber-400 mt-0.5">9458525302</p>
+                        </div>
+
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Official Support Email</p>
+                            <p class="text-sm font-extrabold text-emerald-400 mt-0.5 break-all">uncleben3311@gmail.com</p>
+                        </div>
+
+                        <div class="bg-slate-950 border border-slate-800 rounded-xl p-3">
+                            <p class="text-[10px] text-slate-400 uppercase font-bold">Working Timing</p>
+                            <p class="text-xs font-semibold text-slate-200 mt-0.5">Monday to Sunday: 10:00 AM – 09:00 PM (IST)</p>
+                        </div>
+                    </div>
+                `
+            }
+        };
+
+        function openInfoModal(sectionKey) {
+            const modal = document.getElementById('infoModal');
+            const titleEl = document.getElementById('infoModalTitle');
+            const bodyEl = document.getElementById('infoModalBody');
+            const data = modalData[sectionKey] || modalData.privacy;
+
+            titleEl.innerText = data.title;
+            bodyEl.innerHTML = data.html;
+
+            // Highlight active tab inside modal
+            ['privacy', 'refund', 'terms', 'contact'].forEach(key => {
+                const tabBtn = document.getElementById('modalTab-' + key);
+                if (!tabBtn) return;
+                if (key === sectionKey) {
+                    tabBtn.className = "py-1.5 px-1 rounded-lg bg-purple-600 text-white truncate";
+                } else {
+                    tabBtn.className = "py-1.5 px-1 rounded-lg text-slate-400 hover:text-white truncate";
+                }
+            });
+
+            modal.classList.remove('hidden');
+        }
+
+        function closeInfoModal() {
+            document.getElementById('infoModal').classList.add('hidden');
+        }
     </script>
 </body>
 </html>
