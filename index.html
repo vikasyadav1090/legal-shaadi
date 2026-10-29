@@ -643,7 +643,7 @@
             </div>
             <h3 id="smTitle" class="heading-font text-lg font-extrabold text-white">Payment Successful! 🎉</h3>
             <p id="smProduct" class="text-xs text-emerald-300 font-semibold mt-1 mb-4"></p>
-            <div id="smBody" class="modal-scroll max-h-[50vh] overflow-y-auto overflow-x-hidden p-1.5 space-y-2.5"></div>
+            <div id="smBody" class="modal-scroll max-h-[38vh] overflow-y-auto overflow-x-hidden p-1.5 space-y-2.5"></div>
             <button onclick="closeSuccessModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 rounded-xl">
                 Baad mein — ye download "Meri Purchases" mein hamesha rahega
             </button>
@@ -706,7 +706,7 @@
 
     <!-- Payment gateway helper. Served by the gateway at /apps/legalshaadi/; if hosted on legalshaadi.in instead,
          use https://pg.klabs.in/pg.js and add the domain under Admin → Domains. -->
-    <script src="https://pg.klabs.in/pg.js"></script>
+    <script src="/pg.js"></script>
     <script>
         // Product slugs created in the gateway admin (Admin → Products). Price ₹399 is set there.
         const PRODUCT_BLUEPRINT = 'legalshaadi-blueprint';
@@ -921,7 +921,7 @@
                         title: order.product ? order.product.name : entry.title,
                         product: order.product ? order.product.slug : entry.product,
                     });
-                    if (order.status === 'COMPLETED' && !wasPaid) showSuccessModal(order);
+                    if (order.status === 'COMPLETED' && !wasPaid) showSuccessModal([order]);
                 }
             } catch (err) {
                 if (err.status === 404) forgetOrder(entry.orderId); // unknown to the gateway; network errors retry later
@@ -956,12 +956,31 @@
                 orderIdLine(order.orderId);
         }
 
-        function showSuccessModal(order) {
-            document.getElementById('smProduct').innerText = (order.product ? order.product.name : 'Aapka order') + ' unlock ho gaya hai';
-            document.getElementById('smBody').innerHTML = accessHtml(order);
+        // Shown for a newly confirmed payment, and once per browser session for purchases made earlier.
+        const MODAL_SEEN_KEY = 'ls_purchases_modal_seen';
+        let modalShownThisLoad = false;
+
+        function showSuccessModal(orders, { welcomeBack = false } = {}) {
+            const name = (o) => (o.product ? o.product.name : 'Aapka order');
+            document.getElementById('smTitle').innerText = welcomeBack ? 'Aapka Access Ready Hai 🔑' : 'Payment Successful! 🎉';
+            document.getElementById('smProduct').innerText = welcomeBack
+                ? 'Aapki purchase is device par saved hai — download yahin se karein'
+                : name(orders[0]) + ' unlock ho gaya hai';
+            document.getElementById('smBody').innerHTML = orders
+                .map((o) => (welcomeBack ? `<p class="text-xs font-bold text-emerald-300 text-left">✅ ${esc(name(o))}</p>` : '') + accessHtml(o))
+                .join('<div class="border-t border-emerald-500/30"></div>');
             hideCheckoutOverlay();
             closeInfoModal();
             document.getElementById('successModal').classList.add('is-open');
+            modalShownThisLoad = true;
+            try { sessionStorage.setItem(MODAL_SEEN_KEY, '1'); } catch (err) { /* shows again next load */ }
+        }
+
+        function showPurchasesOnArrival() {
+            let seen = false;
+            try { seen = sessionStorage.getItem(MODAL_SEEN_KEY) === '1'; } catch (err) { /* treat as unseen */ }
+            const paid = saved.filter((o) => o.status === 'COMPLETED' && details[o.orderId]).map((o) => details[o.orderId]);
+            if (!seen && !modalShownThisLoad && paid.length) showSuccessModal(paid, { welcomeBack: true });
         }
 
         function closeSuccessModal() {
@@ -1017,7 +1036,8 @@
         }
         changeSaved((list) => list.filter((o) => o.status !== 'FAILED' || o.orderId === redirectOrderId));
         renderPurchases();
-        saved.forEach(checkOrder); // fresh links for paid orders, status for the rest
+        // Fresh links for paid orders, status for the rest; then greet returning buyers with their downloads.
+        Promise.all(saved.map(checkOrder)).then(showPurchasesOnArrival);
         // A newly paid order opens the success modal instead; scroll for pending/failed or already-seen ones.
         if (redirectOrderId) scrollToPurchases();
 
@@ -1145,5 +1165,6 @@
             document.getElementById('infoModal').classList.add('hidden');
         }
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8822dfd2a4d64d298020825ca9371eb3","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
