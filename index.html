@@ -81,8 +81,17 @@
         .co-step .co-dot::before { content: '○'; }
         .co-step.active .co-dot::before { content: '◉'; }
         .co-step.done .co-dot::before { content: '✓'; }
+        /* Payment success modal */
+        #successModal { transition: opacity .25s ease; }
+        #successModal.is-open { opacity: 1; pointer-events: auto; }
+        #successModal .sm-card { transform: translateY(24px) scale(.9); transition: transform .45s cubic-bezier(.2,.9,.3,1.3); }
+        #successModal.is-open .sm-card { transform: none; }
+        .sm-badge { animation: smPop .5s cubic-bezier(.2,.9,.3,1.5) both .15s; }
+        .sm-ring { position: absolute; inset: 0; border-radius: 9999px; border: 3px solid #34d399; animation: smRing 1.6s ease-out infinite; }
+        @keyframes smPop { from { transform: scale(0); } to { transform: scale(1); } }
+        @keyframes smRing { from { transform: scale(1); opacity: .8; } to { transform: scale(1.7); opacity: 0; } }
         @media (prefers-reduced-motion: reduce) {
-            .co-orbit, .co-core, .co-bar { animation: none; }
+            .co-orbit, .co-core, .co-bar, .sm-badge, .sm-ring { animation: none; }
         }
     </style>
 </head>
@@ -619,6 +628,28 @@
         </div>
     </div>
 
+    <!-- Payment success modal: opens the moment the gateway confirms a payment -->
+    <div id="successModal" role="dialog" aria-modal="true" aria-labelledby="smTitle" onclick="if (event.target === this) closeSuccessModal()"
+         class="fixed inset-0 z-[60] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="sm-card w-full max-w-sm bg-gradient-to-b from-emerald-950 to-slate-900 border-2 border-emerald-500/70 rounded-3xl p-6 text-center shadow-2xl relative">
+            <button onclick="closeSuccessModal()" aria-label="Close" class="absolute top-3 right-3 w-8 h-8 rounded-full bg-slate-800/80 text-slate-400 hover:text-white flex items-center justify-center">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+            <div class="relative w-20 h-20 mx-auto mb-4">
+                <div class="sm-ring"></div>
+                <div class="sm-badge absolute inset-0 rounded-full bg-gradient-to-br from-emerald-400 to-emerald-600 flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-check text-white text-3xl"></i>
+                </div>
+            </div>
+            <h3 id="smTitle" class="heading-font text-lg font-extrabold text-white">Payment Successful! 🎉</h3>
+            <p id="smProduct" class="text-xs text-emerald-300 font-semibold mt-1 mb-4"></p>
+            <div id="smBody" class="modal-scroll max-h-[50vh] overflow-y-auto overflow-x-hidden p-1.5 space-y-2.5"></div>
+            <button onclick="closeSuccessModal()" class="w-full mt-4 bg-slate-800 hover:bg-slate-700 text-slate-200 font-bold text-xs py-2.5 rounded-xl">
+                Baad mein — ye download "Meri Purchases" mein hamesha rahega
+            </button>
+        </div>
+    </div>
+
     <!-- ===================================================================== -->
     <!-- POPUP MODAL (#infoModal) FOR PRIVACY, REFUND, TERMS & CONTACT US      -->
     <!-- (ONLY VISIBLE WHEN USER CLICKS THE 4 FOOTER LINKS)                    -->
@@ -890,10 +921,7 @@
                         title: order.product ? order.product.name : entry.title,
                         product: order.product ? order.product.slug : entry.product,
                     });
-                    if (order.status === 'COMPLETED' && !wasPaid) {
-                        showStatus('🎉 Payment confirm ho gaya! Aapka download niche unlock ho gaya hai.');
-                        scrollToPurchases();
-                    }
+                    if (order.status === 'COMPLETED' && !wasPaid) showSuccessModal(order);
                 }
             } catch (err) {
                 if (err.status === 404) forgetOrder(entry.orderId); // unknown to the gateway; network errors retry later
@@ -912,24 +940,46 @@
             document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
         }
 
+        const orderIdLine = (orderId) => `<p class="text-[10px] text-slate-400">Order ID: <span class="font-mono select-all">${esc(orderId)}</span></p>`;
+
+        // Download buttons + instructions of a paid order (used by the purchases box and the success modal).
+        function accessHtml(order) {
+            return order.downloads.map((d) => d.url
+                    ? `<a href="${esc(d.url)}" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
+                           📥 DOWNLOAD ${esc(d.fileName)}
+                       </a>
+                       <p class="text-[10px] text-slate-400">${d.remaining} of ${d.limit} downloads left</p>`
+                    : `<p class="text-[11px] text-slate-400">${esc(d.fileName)}: ${esc(d.status)}</p>`).join('') +
+                (order.instructions
+                    ? `<div class="bg-slate-900 border border-amber-500/50 rounded-xl p-3 text-left text-xs text-amber-100 whitespace-pre-wrap">${esc(order.instructions)}</div>`
+                    : '') +
+                orderIdLine(order.orderId);
+        }
+
+        function showSuccessModal(order) {
+            document.getElementById('smProduct').innerText = (order.product ? order.product.name : 'Aapka order') + ' unlock ho gaya hai';
+            document.getElementById('smBody').innerHTML = accessHtml(order);
+            hideCheckoutOverlay();
+            closeInfoModal();
+            document.getElementById('successModal').classList.add('is-open');
+        }
+
+        function closeSuccessModal() {
+            const modal = document.getElementById('successModal');
+            if (!modal.classList.contains('is-open')) return;
+            modal.classList.remove('is-open');
+            scrollToPurchases();
+        }
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeSuccessModal(); });
+
         function purchaseCard(o) {
             const order = details[o.orderId];
             const name = esc(o.title || 'Aapka order');
-            const idLine = `<p class="text-[10px] text-slate-400">Order ID: <span class="font-mono select-all">${esc(o.orderId)}</span></p>`;
+            const idLine = orderIdLine(o.orderId);
             if (o.status === 'COMPLETED' && order) {
                 return `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
                             ✅ Payment Successful! ${name} unlock ho gaya hai.
-                        </div>` +
-                    order.downloads.map((d) => d.url
-                        ? `<a href="${esc(d.url)}" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
-                               📥 DOWNLOAD ${esc(d.fileName)}
-                           </a>
-                           <p class="text-[10px] text-slate-400">${d.remaining} of ${d.limit} downloads left</p>`
-                        : `<p class="text-[11px] text-slate-400">${esc(d.fileName)}: ${esc(d.status)}</p>`).join('') +
-                    (order.instructions
-                        ? `<div class="bg-slate-900 border border-amber-500/50 rounded-xl p-3 text-left text-xs text-amber-100 whitespace-pre-wrap">${esc(order.instructions)}</div>`
-                        : '') +
-                    idLine;
+                        </div>` + accessHtml(order);
             }
             if (o.status === 'COMPLETED') {
                 return `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
@@ -968,6 +1018,7 @@
         changeSaved((list) => list.filter((o) => o.status !== 'FAILED' || o.orderId === redirectOrderId));
         renderPurchases();
         saved.forEach(checkOrder); // fresh links for paid orders, status for the rest
+        // A newly paid order opens the success modal instead; scroll for pending/failed or already-seen ones.
         if (redirectOrderId) scrollToPurchases();
 
         setInterval(() => {
@@ -1094,6 +1145,5 @@
             document.getElementById('infoModal').classList.add('hidden');
         }
     </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8822dfd2a4d64d298020825ca9371eb3","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
