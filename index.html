@@ -110,7 +110,7 @@
             </p>
 
             <!-- Primary CTA Button -->
-            <button onclick="openPaymentModal('Course Blueprint - ₹399')" class="pulse-btn w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 active:scale-95 text-white font-extrabold text-base py-4 px-4 rounded-2xl shadow-2xl flex items-center justify-center space-x-2 border border-purple-400/40">
+            <button onclick="openPaymentModal('Course Blueprint - ₹399', PRODUCT_BLUEPRINT)" class="pulse-btn w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 active:scale-95 text-white font-extrabold text-base py-4 px-4 rounded-2xl shadow-2xl flex items-center justify-center space-x-2 border border-purple-400/40">
                 <i class="fa-solid fa-qrcode text-amber-300 text-lg"></i>
                 <span>PAY ₹399 & GET ACCESS NOW</span>
             </button>
@@ -258,7 +258,7 @@
                 </div>
             </div>
 
-            <button onclick="openPaymentModal('Course Blueprint + 3 Bonuses - ₹399')" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center space-x-2">
+            <button onclick="openPaymentModal('Course Blueprint + 3 Bonuses - ₹399', PRODUCT_BLUEPRINT)" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center space-x-2">
                 <i class="fa-solid fa-download"></i>
                 <span>DOWNLOAD COMPLETE MODULES (₹399)</span>
             </button>
@@ -354,7 +354,7 @@
                 </div>
 
                 <!-- Dedicated Consultancy CTA Button -->
-                <button onclick="openPaymentModal('1-on-1 Legal Consultancy + Free PDF - ₹399')" class="pulse-amber w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-4 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2">
+                <button onclick="openPaymentModal('1-on-1 Legal Consultancy + Free PDF - ₹399', PRODUCT_CONSULTANCY)" class="pulse-amber w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-4 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-headset text-base"></i>
                     <span>BOOK 1-ON-1 CONSULTANCY + FREE PDF @ ₹399</span>
                 </button>
@@ -422,7 +422,7 @@
             </div>
         </section>
 
-        <!-- 10. MAIN PRICE OFFER CARD & INSTANT POST-PAYMENT UTR ACCESS SECTION -->
+        <!-- 10. MAIN PRICE OFFER CARD & POST-PAYMENT ACCESS SECTION -->
         <section class="bg-gradient-to-r from-purple-950 via-slate-900 to-purple-950 border-2 border-purple-500 rounded-3xl p-5 text-center mb-6 shadow-2xl relative">
             <span class="absolute -top-3 left-1/2 -translate-x-1/2 bg-purple-600 text-white font-black text-[10px] px-3 py-0.5 rounded-full uppercase tracking-widest shadow">
                 Instant Access Offer
@@ -433,57 +433,25 @@
                 <span class="text-4xl font-black text-emerald-400">₹399</span>
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">80% OFF</span>
             </div>
-            <button onclick="openPaymentModal('Course Blueprint + 1-on-1 Consultancy Offer - ₹399')" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
+            <button onclick="openPaymentModal('Course Blueprint + 1-on-1 Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
                 <i class="fa-solid fa-lock"></i>
                 <span>PAY ₹399 WITH UPI NOW</span>
             </button>
             <p class="text-[10px] text-slate-400">100% Secure UPI Payment • Instant Verification</p>
         </section>
 
-        <!-- POST-PAYMENT ACCESS BOX WITH 12-DIGIT UPI UTR VERIFICATION -->
+        <!-- POST-PAYMENT ACCESS BOX (UNLOCKED BY GATEWAY AFTER PHONEPE CONFIRMS PAYMENT) -->
         <section id="downloadSection" class="bg-emerald-950/80 border-2 border-emerald-500 rounded-2xl p-4 mb-7 shadow-2xl text-center">
             <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-2 shadow-md">
                 <i class="fa-solid fa-key"></i>
             </div>
-            <h3 class="text-base font-bold text-emerald-400 mb-1">Payment Done? Verify UTR & Unlock Access</h3>
-            <p class="text-xs text-slate-300 mb-3">
-                ₹399 UPI Payment karne ke baad apna <strong>12-Digit UPI UTR / Reference Number</strong> neeche dalein. Verify hote hi PDF Download aur Consultancy Slot turant unlock ho jayega:
+            <h3 class="text-base font-bold text-emerald-400 mb-1">Payment Done? Access Yahin Unlock Hoga</h3>
+            <p id="accessHint" class="text-xs text-slate-300">
+                ₹399 PhonePe Secure Checkout se pay karte hi aap isi page par wapas aayenge aur <strong>PDF Download aur Consultancy Slot</strong> yahin automatically unlock ho jayega. Koi UTR daalne ki zaroorat nahi.
             </p>
 
-            <!-- 12-Digit UTR Input Form -->
-            <div class="space-y-2.5 text-left mb-3">
-                <div>
-                    <label for="utrInput" class="block text-[11px] font-bold text-emerald-300 mb-1">
-                        Enter 12-Digit UPI UTR / Ref No. <span class="text-red-400">*</span>
-                    </label>
-                    <input id="utrInput" type="text" maxlength="12" inputmode="numeric" placeholder="Example: 412389012345" class="w-full bg-slate-900 border border-emerald-500/60 focus:border-amber-400 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono placeholder-slate-500 outline-none">
-                </div>
-                <div>
-                    <label for="slotMobileInput" class="block text-[11px] font-bold text-slate-300 mb-1">
-                        Your Mobile Number (Optional - For 1-on-1 Consultancy Call Slot)
-                    </label>
-                    <input id="slotMobileInput" type="tel" maxlength="10" inputmode="numeric" placeholder="Enter 10-digit mobile number for call" class="w-full bg-slate-900 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
-                </div>
-            </div>
-
-            <p id="utrErrorMsg" class="text-[11px] text-red-400 font-bold mb-2.5 hidden">
-                ⚠️ Kripya Sahi 12-Digit Numeric UPI UTR / Reference Number Darj Karein!
-            </p>
-
-            <button onclick="verifyUtrAndUnlock()" class="w-full bg-emerald-600 hover:bg-emerald-500 active:scale-95 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl flex items-center justify-center space-x-2 transition">
-                <i class="fa-solid fa-circle-check"></i>
-                <span>VERIFY 12-DIGIT UTR & UNLOCK NOW</span>
-            </button>
-
-            <!-- Hidden Unlocked Box (Revealed After Valid 12-Digit UTR Verification) -->
-            <div id="unlockedDownloadBox" class="hidden mt-4 pt-3.5 border-t border-emerald-500/40 space-y-2.5">
-                <div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
-                    ✅ UTR Verified Successfully! Aapka Course PDF Unlock Ho Gaya Hai Aur 1-on-1 Consultancy Slot Register Kar Liya Gaya Hai.
-                </div>
-                <a id="pdfDownloadBtn" href="YOUR_GOOGLE_DRIVE_PDF_LINK_HERE" target="_blank" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
-                    📥 DOWNLOAD COURSE PDF & 15+ DRAFTS NOW
-                </a>
-            </div>
+            <!-- Filled from the payment gateway after PhonePe redirects back here -->
+            <div id="unlockedDownloadBox" class="hidden mt-4 pt-3.5 border-t border-emerald-500/40 space-y-2.5"></div>
         </section>
 
         <!-- 11. INTERACTIVE PERSUASIVE FAQS (7 ACCORDION QUESTIONS) -->
@@ -527,7 +495,7 @@
                         <i id="faqIcon-2" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </button>
                     <div id="faqBody-2" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
-                        Bahut aasan hai! Aap ₹399 UPI payment karne ke baad upar diye gaye Verification Box mein apna 12-Digit UTR Number aur Mobile Number darj karenge. Aapka Consultancy Slot turant confirm ho jayega, Free Course PDF wahin unlock ho jayega, aur hamare Senior Legal Expert aapse 1-on-1 Audio/Telephonic session par aapke case ki strategy discuss karenge.
+                        Bahut aasan hai! Payment ke waqt aap apna Mobile Number darj karenge aur PhonePe Secure Checkout se ₹399 pay karenge. Payment confirm hote hi aapka Consultancy Slot register ho jayega, Free Course PDF isi page par unlock ho jayega, aur hamare Senior Legal Expert aapse 1-on-1 Audio/Telephonic session par aapke case ki strategy discuss karenge.
                     </div>
                 </div>
 
@@ -560,7 +528,7 @@
                         <i id="faqIcon-5" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </button>
                     <div id="faqBody-5" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
-                        Jaise hi aap kisi bhi UPI App (GPay, PhonePe, Paytm) se ₹399 pay karke apna 12-Digit UTR number upar verify karenge, usi second screen par Direct Download Button khul jayega jahan se aap poora Course PDF aur 15+ Editable Drafts apne phone mein save kar sakte hain.
+                        Jaise hi aap PhonePe Secure Checkout (UPI, Card ya Net Banking) se ₹399 pay karenge, aap isi page par wapas aayenge aur turant Direct Download Button khul jayega jahan se aap poora Course PDF aur 15+ Editable Drafts apne phone mein save kar sakte hain.
                     </div>
                 </div>
 
@@ -602,35 +570,33 @@
             </button>
 
             <span class="inline-block bg-purple-600/20 border border-purple-500/50 text-purple-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase mb-1">
-                🔒 Instant UPI Verification
+                🔒 100% Secure PhonePe Checkout
             </span>
-            <h3 class="heading-font text-lg font-bold text-amber-400 mb-0.5">Scan & Pay ₹399</h3>
+            <h3 class="heading-font text-lg font-bold text-amber-400 mb-0.5">Pay ₹399 & Unlock Access</h3>
             <p id="modalPlanTitle" class="text-[11px] text-emerald-300 font-semibold mb-1">Course Blueprint - ₹399</p>
-            <p class="text-[11px] text-slate-400 mb-3">Google Pay, PhonePe, Paytm, ya kisi bhi App se Scan Karein</p>
+            <p class="text-[11px] text-slate-400 mb-3">UPI (GPay, PhonePe, Paytm), Debit/Credit Card ya Net Banking</p>
 
-            <!-- Dynamic QR Code (Auto-generated for ₹399) -->
-            <div class="bg-white p-3 rounded-2xl inline-block mb-3 shadow-lg">
-                <img id="qrImage" src="https://api.qrserver.com/v1/create-qr-code/?size=180x180&data=upi://pay?pa=9410851090-n532@ybl%26pn=VIKAS%20YADAV%26am=399.00%26cu=INR" alt="UPI QR Code" class="w-40 h-40 mx-auto" onerror="this.src='https://placehold.co/180x180/ffffff/0f172a?text=Pay+Rs.399+UPI'">
-            </div>
+            <form id="checkoutForm" class="space-y-2.5 text-left mb-3" onsubmit="startCheckout(event)">
+                <div>
+                    <label for="buyerName" class="block text-[11px] font-bold text-slate-300 mb-1">Aapka Naam</label>
+                    <input id="buyerName" type="text" maxlength="100" autocomplete="name" placeholder="Full name" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
+                </div>
+                <div>
+                    <label for="buyerPhone" class="block text-[11px] font-bold text-slate-300 mb-1">Mobile Number <span class="text-red-400">*</span> <span class="font-normal text-slate-500">(Consultancy call ke liye)</span></label>
+                    <input id="buyerPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel-national" required placeholder="10-digit mobile number" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
+                </div>
+                <div>
+                    <label for="buyerEmail" class="block text-[11px] font-bold text-slate-300 mb-1">Email <span class="font-normal text-slate-500">(Optional)</span></label>
+                    <input id="buyerEmail" type="email" maxlength="200" autocomplete="email" placeholder="you@example.com" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
+                </div>
 
-            <p class="text-[11px] text-slate-400 mb-2">Ya App Se Direct Open Karein:</p>
-            <button onclick="payDirectUPI()" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-bold py-2.5 px-3 rounded-xl text-xs mb-3 flex items-center justify-center space-x-2 shadow-lg">
-                <i class="fa-solid fa-mobile-screen"></i>
-                <span>Open UPI App Direct (₹399)</span>
-            </button>
+                <p id="checkoutError" class="text-[11px] text-red-400 font-bold hidden"></p>
 
-            <!-- Copy UPI ID Option (Failsafe) -->
-            <div class="bg-slate-800 border border-slate-700 p-2.5 rounded-xl flex items-center justify-between mb-2">
-                <span class="text-xs text-amber-400 font-mono font-bold">9410851090-n532@ybl</span>
-                <button onclick="copyUPI()" class="bg-slate-700 hover:bg-slate-600 text-white text-[10px] px-2.5 py-1 rounded-lg font-bold">
-                    <i class="fa-regular fa-copy"></i> Copy UPI
+                <button id="checkoutBtn" type="submit" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 disabled:opacity-60 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
+                    <i class="fa-solid fa-lock"></i>
+                    <span id="checkoutBtnText">Pay ₹399 Securely via PhonePe</span>
                 </button>
-            </div>
-            <p id="copyAlert" class="text-[10px] text-emerald-400 font-semibold mt-1 hidden">✅ UPI ID Copied Successfully!</p>
-
-            <button onclick="goToUtrVerification()" class="w-full mt-2 bg-emerald-950/80 hover:bg-emerald-900 border border-emerald-500/50 text-emerald-300 font-bold text-[11px] py-2 px-3 rounded-xl">
-                Payment Kar Diya? Click Here To Enter 12-Digit UTR →
-            </button>
+            </form>
         </div>
     </div>
 
@@ -681,14 +647,21 @@
                     <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold px-1.5 py-0.2 rounded">80% OFF</span>
                 </div>
             </div>
-            <button onclick="openPaymentModal('Course Blueprint + Consultancy Offer - ₹399')" class="pulse-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 active:bg-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
+            <button onclick="openPaymentModal('Course Blueprint + Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 active:bg-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
                 <i class="fa-solid fa-bolt text-amber-300"></i>
                 <span>PAY ₹399 VIA UPI</span>
             </button>
         </div>
     </div>
 
+    <!-- Payment gateway helper. Served by the gateway at /apps/legalshaadi/; if hosted on legalshaadi.in instead,
+         use https://pg.klabs.in/pg.js and add the domain under Admin → Domains. -->
+    <script src="https://pg.klabs.in/pg.js"></script>
     <script>
+        // Product slugs created in the gateway admin (Admin → Products). Price ₹399 is set there.
+        const PRODUCT_BLUEPRINT = 'legalshaadi-blueprint';
+        const PRODUCT_CONSULTANCY = 'legalshaadi-consultancy';
+
         // 1. Live 15-Minute Countdown Timer
         let remainingSeconds = 14 * 60 + 59;
         const countdownEl = document.getElementById('countdownTimer');
@@ -735,12 +708,16 @@
         setTimeout(showPurchaseToast, 4000);
         setInterval(showPurchaseToast, 10000);
 
-        // 3. UPI Payment Modal Controls
-        function openPaymentModal(planTitle) {
+        // 3. PhonePe Payment Modal Controls (via pg.klabs.in gateway)
+        let selectedProduct = PRODUCT_BLUEPRINT;
+
+        function openPaymentModal(planTitle, productSlug) {
             if (planTitle) {
                 const titleEl = document.getElementById('modalPlanTitle');
                 if (titleEl) titleEl.innerText = planTitle;
             }
+            selectedProduct = productSlug || PRODUCT_BLUEPRINT;
+            document.getElementById('checkoutError').classList.add('hidden');
             document.getElementById('paymentModal').classList.remove('hidden');
         }
 
@@ -748,63 +725,100 @@
             document.getElementById('paymentModal').classList.add('hidden');
         }
 
-        function payDirectUPI() {
-            const upiLink = "upi://pay?pa=9410851090-n532@ybl&pn=VIKAS%20YADAV&am=399.00&cu=INR";
-            window.location.href = upiLink;
-        }
+        const CHECKOUT_ERRORS = {
+            CUSTOMER_PHONE_REQUIRED: 'Kripya apna 10-digit mobile number darj karein.',
+            CUSTOMER_EMAIL_REQUIRED: 'Kripya apna email darj karein.',
+            RATE_LIMITED: 'Bahut zyada koshish ho gayi. 1 minute baad dobara try karein.',
+            PHONEPE_ERROR: 'PhonePe abhi response nahi de raha. Thodi der baad dobara try karein.',
+        };
 
-        function fallbackCopy(text) {
-            const ta = document.createElement('textarea');
-            ta.value = text;
-            ta.style.position = 'fixed';
-            ta.style.opacity = '0';
-            document.body.appendChild(ta);
-            ta.focus();
-            ta.select();
-            try {
-                document.execCommand('copy');
-            } catch (e) {}
-            document.body.removeChild(ta);
-        }
+        async function startCheckout(e) {
+            e.preventDefault();
+            const name = document.getElementById('buyerName').value.trim();
+            const phone = document.getElementById('buyerPhone').value.trim();
+            const email = document.getElementById('buyerEmail').value.trim();
+            const errEl = document.getElementById('checkoutError');
+            const btn = document.getElementById('checkoutBtn');
+            const btnText = document.getElementById('checkoutBtnText');
 
-        function copyUPI() {
-            const id = "9410851090-n532@ybl";
-            if (navigator.clipboard && navigator.clipboard.writeText) {
-                navigator.clipboard.writeText(id).catch(() => fallbackCopy(id));
-            } else {
-                fallbackCopy(id);
-            }
-            const copyAlert = document.getElementById('copyAlert');
-            copyAlert.classList.remove('hidden');
-            setTimeout(() => copyAlert.classList.add('hidden'), 2500);
-        }
-
-        function goToUtrVerification() {
-            closePaymentModal();
-            const dlSec = document.getElementById('downloadSection');
-            if (dlSec) dlSec.scrollIntoView({ behavior: 'smooth' });
-            setTimeout(() => {
-                const utrInput = document.getElementById('utrInput');
-                if (utrInput) utrInput.focus();
-            }, 500);
-        }
-
-        // 4. 12-Digit UPI UTR Verification Logic
-        function verifyUtrAndUnlock() {
-            const utrVal = (document.getElementById('utrInput').value || '').trim();
-            const errEl = document.getElementById('utrErrorMsg');
-            const unlockBox = document.getElementById('unlockedDownloadBox');
-
-            // Validate 12-digit numeric UTR
-            if (!/^\d{12}$/.test(utrVal)) {
+            const showError = (msg) => {
+                errEl.innerText = '⚠️ ' + msg;
                 errEl.classList.remove('hidden');
-                unlockBox.classList.add('hidden');
-                return;
-            }
-
+            };
+            if (!/^[6-9]\d{9}$/.test(phone)) return showError('Kripya sahi 10-digit mobile number darj karein.');
             errEl.classList.add('hidden');
-            unlockBox.classList.remove('hidden');
+
+            btn.disabled = true;
+            btnText.innerText = 'PhonePe khul raha hai…';
+            const here = location.origin + location.pathname;
+            try {
+                // Price is set in the gateway; PhonePe redirects back here with ?orderId=&receipt=
+                await PhonePeGateway.checkout({
+                    product: selectedProduct,
+                    successUrl: here,
+                    failureUrl: here,
+                    customer: { name: name || undefined, phone, email: email || undefined },
+                });
+            } catch (err) {
+                showError(CHECKOUT_ERRORS[err.code] || err.message || 'Payment shuru nahi ho saka. Dobara try karein.');
+                btn.disabled = false;
+                btnText.innerText = 'Pay ₹399 Securely via PhonePe';
+            }
         }
+
+        // 4. After PhonePe redirects back: unlock access only for a gateway-confirmed payment
+        let retryProduct = PRODUCT_BLUEPRINT;
+        let retryTitle = null;
+        const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+
+        async function showOrderFromRedirect() {
+            const box = document.getElementById('unlockedDownloadBox');
+            const hint = document.getElementById('accessHint');
+            let order;
+            try {
+                order = await PhonePeGateway.fromRedirect();
+            } catch (err) {
+                order = null;
+            }
+            if (!order) return;
+
+            hint.classList.add('hidden');
+            box.classList.remove('hidden');
+            if (order.status === 'COMPLETED') {
+                box.innerHTML =
+                    `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
+                        ✅ Payment Successful! ${esc(order.product ? order.product.name : 'Aapka order')} unlock ho gaya hai.
+                    </div>` +
+                    order.downloads.map((d) => d.url
+                        ? `<a href="${esc(d.url)}" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
+                               📥 DOWNLOAD ${esc(d.fileName)}
+                           </a>
+                           <p class="text-[10px] text-slate-400">${d.remaining} of ${d.limit} downloads left</p>`
+                        : `<p class="text-[11px] text-slate-400">${esc(d.fileName)}: ${esc(d.status)}</p>`).join('') +
+                    (order.instructions
+                        ? `<div class="bg-slate-900 border border-amber-500/50 rounded-xl p-3 text-left text-xs text-amber-100 whitespace-pre-wrap">${esc(order.instructions)}</div>`
+                        : '') +
+                    `<p class="text-[10px] text-slate-400">Order ID: ${esc(order.orderId)} — is page ko bookmark kar lein, dobara download ke liye.</p>`;
+            } else if (order.status === 'FAILED') {
+                retryProduct = order.product && order.product.slug === PRODUCT_CONSULTANCY ? PRODUCT_CONSULTANCY : PRODUCT_BLUEPRINT;
+                retryTitle = order.product ? order.product.name : null;
+                box.innerHTML =
+                    `<div class="bg-red-950/60 border border-red-500 rounded-xl p-2.5 text-xs text-red-200 font-semibold">
+                        ❌ Payment fail ho gaya. Agar paise kate hain to wo apne aap wapas aa jayenge.
+                    </div>
+                    <button onclick="openPaymentModal(retryTitle, retryProduct)" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl">
+                        🔁 DOBARA TRY KAREIN
+                    </button>`;
+            } else {
+                box.innerHTML =
+                    `<div class="bg-amber-950/60 border border-amber-500 rounded-xl p-2.5 text-xs text-amber-200 font-semibold">
+                        ⏳ Payment confirm ho raha hai… ye page apne aap refresh hoga.
+                    </div>`;
+                setTimeout(() => location.reload(), 4000);
+            }
+            document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+        }
+        showOrderFromRedirect();
 
         // 5. FAQ Accordion Logic
         function toggleFaq(index) {
