@@ -58,6 +58,32 @@
             background: #475569;
             border-radius: 8px;
         }
+
+        /* Checkout loading overlay */
+        #checkoutOverlay { transition: opacity .25s ease; }
+        #checkoutOverlay.is-open { opacity: 1; pointer-events: auto; }
+        #checkoutOverlay .co-card { transform: translateY(16px) scale(.96); transition: transform .35s cubic-bezier(.2,.9,.3,1.2); }
+        #checkoutOverlay.is-open .co-card { transform: none; }
+        .co-orbit {
+            position: absolute; inset: 0; border-radius: 9999px;
+            border: 3px solid transparent; border-top-color: #a855f7; border-right-color: #f59e0b;
+            animation: coSpin 1s linear infinite;
+        }
+        .co-orbit.inner { inset: 12px; border-top-color: #10b981; border-right-color: transparent; border-left-color: #10b981; animation-duration: 1.5s; animation-direction: reverse; }
+        .co-core { animation: coBeat 1.2s ease-in-out infinite; }
+        @keyframes coSpin { to { transform: rotate(360deg); } }
+        @keyframes coBeat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.12); } }
+        .co-bar { animation: coBar 2.4s ease-in-out infinite; }
+        @keyframes coBar { 0% { transform: translateX(-100%); } 100% { transform: translateX(250%); } }
+        .co-step { opacity: .4; transition: opacity .3s, color .3s; }
+        .co-step.active { opacity: 1; color: #fcd34d; }
+        .co-step.done { opacity: 1; color: #6ee7b7; }
+        .co-step .co-dot::before { content: '○'; }
+        .co-step.active .co-dot::before { content: '◉'; }
+        .co-step.done .co-dot::before { content: '✓'; }
+        @media (prefers-reduced-motion: reduce) {
+            .co-orbit, .co-core, .co-bar { animation: none; }
+        }
     </style>
 </head>
 <body class="bg-slate-950 text-slate-100 antialiased pb-32 selection:bg-purple-600 selection:text-white">
@@ -563,6 +589,36 @@
     <!-- Checkout status (no contact details are collected; PhonePe opens directly) -->
     <div id="checkoutStatus" role="status" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 max-w-sm w-[calc(100%-2rem)] bg-slate-900 border border-purple-500 rounded-xl px-4 py-3 text-xs font-bold text-center text-white shadow-2xl hidden"></div>
 
+    <!-- Checkout loading overlay: shown from the pay click until PhonePe takes over -->
+    <div id="checkoutOverlay" role="dialog" aria-modal="true" aria-live="polite" aria-labelledby="coTitle"
+         class="fixed inset-0 z-[60] bg-slate-950/90 backdrop-blur-md flex items-center justify-center p-4 opacity-0 pointer-events-none">
+        <div class="co-card w-full max-w-xs bg-gradient-to-b from-purple-950 to-slate-900 border-2 border-purple-500/70 rounded-3xl p-6 text-center shadow-2xl">
+            <div class="relative w-24 h-24 mx-auto mb-4">
+                <div class="co-orbit"></div>
+                <div class="co-orbit inner"></div>
+                <div class="co-core absolute inset-6 rounded-full bg-gradient-to-br from-purple-600 to-amber-500 flex items-center justify-center shadow-lg">
+                    <i class="fa-solid fa-lock text-white text-xl"></i>
+                </div>
+            </div>
+            <h3 id="coTitle" class="heading-font text-base font-extrabold text-white">Secure Checkout</h3>
+            <p id="coPlan" class="text-[11px] text-amber-300 font-semibold mt-0.5 mb-4"></p>
+
+            <ul class="text-left text-xs font-semibold text-slate-300 space-y-2 mb-4">
+                <li class="co-step flex items-center space-x-2"><span class="co-dot w-4 text-center"></span><span>Aapka order ban raha hai</span></li>
+                <li class="co-step flex items-center space-x-2"><span class="co-dot w-4 text-center"></span><span>PhonePe se secure connection</span></li>
+                <li class="co-step flex items-center space-x-2"><span class="co-dot w-4 text-center"></span><span>Payment page khul raha hai</span></li>
+            </ul>
+
+            <div class="h-1.5 rounded-full bg-slate-800 overflow-hidden mb-3">
+                <div class="co-bar h-full w-2/5 rounded-full bg-gradient-to-r from-purple-500 via-fuchsia-500 to-amber-400"></div>
+            </div>
+            <p class="text-[10px] text-slate-400 flex items-center justify-center space-x-1.5">
+                <i class="fa-solid fa-shield-halved text-emerald-400"></i>
+                <span>100% Secure • Page band na karein</span>
+            </p>
+        </div>
+    </div>
+
     <!-- ===================================================================== -->
     <!-- POPUP MODAL (#infoModal) FOR PRIVACY, REFUND, TERMS & CONTACT US      -->
     <!-- (ONLY VISIBLE WHEN USER CLICKS THE 4 FOOTER LINKS)                    -->
@@ -694,10 +750,39 @@
         }
 
         let checkoutBusy = false;
+        let overlayTimers = [];
+
+        function showCheckoutOverlay(planTitle) {
+            const overlay = document.getElementById('checkoutOverlay');
+            const steps = overlay.querySelectorAll('.co-step');
+            document.getElementById('coPlan').innerText = planTitle || '';
+            overlayTimers.forEach(clearTimeout);
+            const setStep = (n) => steps.forEach((el, i) => {
+                el.classList.toggle('done', i < n);
+                el.classList.toggle('active', i === n);
+            });
+            setStep(0);
+            overlayTimers = [setTimeout(() => setStep(1), 700), setTimeout(() => setStep(2), 1600)];
+            overlay.classList.add('is-open');
+        }
+
+        function hideCheckoutOverlay() {
+            overlayTimers.forEach(clearTimeout);
+            document.getElementById('checkoutOverlay').classList.remove('is-open');
+        }
+
+        // Coming back from PhonePe via the browser Back button restores this page from cache: clear the overlay.
+        window.addEventListener('pageshow', (e) => {
+            if (e.persisted) {
+                hideCheckoutOverlay();
+                checkoutBusy = false;
+            }
+        });
 
         async function startCheckout(planTitle, productSlug) {
             if (checkoutBusy) return;
             checkoutBusy = true;
+            showCheckoutOverlay(planTitle);
             const statusEl = document.getElementById('checkoutStatus');
             const showStatus = (msg, isError) => {
                 statusEl.innerText = msg;
@@ -705,7 +790,6 @@
                 statusEl.classList.toggle('text-red-300', !!isError);
                 statusEl.classList.remove('hidden');
             };
-            showStatus('🔒 ' + (planTitle || 'Secure Checkout') + ' — PhonePe khul raha hai…');
             const phone = randomPhone();
             const here = location.origin + location.pathname;
             try {
@@ -717,6 +801,7 @@
                     customer: { name: deviceLabel(), phone, email: 'guest-' + phone + '@legalshaadi.in' },
                 });
             } catch (err) {
+                hideCheckoutOverlay();
                 showStatus('⚠️ ' + (CHECKOUT_ERRORS[err.code] || err.message || 'Payment shuru nahi ho saka. Dobara try karein.'), true);
                 setTimeout(() => statusEl.classList.add('hidden'), 6000);
                 checkoutBusy = false;
@@ -882,6 +967,5 @@
             document.getElementById('infoModal').classList.add('hidden');
         }
     </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8822dfd2a4d64d298020825ca9371eb3","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
