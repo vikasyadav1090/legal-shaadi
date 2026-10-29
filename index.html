@@ -471,12 +471,12 @@
             <div class="w-10 h-10 bg-emerald-500 text-white rounded-full flex items-center justify-center text-xl font-bold mx-auto mb-2 shadow-md">
                 <i class="fa-solid fa-key"></i>
             </div>
-            <h3 class="text-base font-bold text-emerald-400 mb-1">Payment Done? Access Yahin Unlock Hoga</h3>
+            <h3 id="purchasesTitle" class="text-base font-bold text-emerald-400 mb-1">Payment Done? Access Yahin Unlock Hoga</h3>
             <p id="accessHint" class="text-xs text-slate-300">
-                ₹399 PhonePe Secure Checkout se pay karte hi aap isi page par wapas aayenge aur <strong>PDF Download aur Consultancy Slot</strong> yahin automatically unlock ho jayega. Koi UTR daalne ki zaroorat nahi.
+                ₹399 PhonePe Secure Checkout se pay karte hi <strong>PDF Download aur Consultancy Slot</strong> yahin automatically unlock ho jayega — chahe PhonePe se wapas aana atak bhi jaye. Koi UTR daalne ki zaroorat nahi.
             </p>
 
-            <!-- Filled from the payment gateway after PhonePe redirects back here -->
+            <!-- Purchases saved on this device; each one is confirmed with the payment gateway -->
             <div id="unlockedDownloadBox" class="hidden mt-4 pt-3.5 border-t border-emerald-500/40 space-y-2.5"></div>
         </section>
 
@@ -771,66 +771,155 @@
             document.getElementById('checkoutOverlay').classList.remove('is-open');
         }
 
-        // Coming back from PhonePe via the browser Back button restores this page from cache: clear the overlay.
+        // Coming back from PhonePe via the browser Back button restores this page from cache:
+        // clear the overlay and re-check the payment that was just started.
         window.addEventListener('pageshow', (e) => {
             if (e.persisted) {
                 hideCheckoutOverlay();
                 checkoutBusy = false;
+                saved.filter(isPending).forEach(checkOrder);
             }
         });
 
+        let statusTimer;
+        function showStatus(msg, isError) {
+            const statusEl = document.getElementById('checkoutStatus');
+            statusEl.innerText = msg;
+            statusEl.classList.toggle('border-red-500', !!isError);
+            statusEl.classList.toggle('text-red-300', !!isError);
+            statusEl.classList.remove('hidden');
+            clearTimeout(statusTimer);
+            statusTimer = setTimeout(() => statusEl.classList.add('hidden'), 6000);
+        }
+
+        let repeatPurchaseOk = null; // product the shopper chose to buy again after being shown their downloads
+
         async function startCheckout(planTitle, productSlug) {
             if (checkoutBusy) return;
+            const product = productSlug || PRODUCT_BLUEPRINT;
+            if (repeatPurchaseOk !== product && saved.some((o) => o.product === product && o.status === 'COMPLETED')) {
+                repeatPurchaseOk = product;
+                scrollToPurchases();
+                showStatus('✅ Ye aap pehle hi le chuke hain — download niche hai. Dobara khareedne ke liye button phir dabayein.');
+                return;
+            }
             checkoutBusy = true;
             showCheckoutOverlay(planTitle);
-            const statusEl = document.getElementById('checkoutStatus');
-            const showStatus = (msg, isError) => {
-                statusEl.innerText = msg;
-                statusEl.classList.toggle('border-red-500', !!isError);
-                statusEl.classList.toggle('text-red-300', !!isError);
-                statusEl.classList.remove('hidden');
-            };
             const phone = randomPhone();
             const here = location.origin + location.pathname;
             try {
                 // Price is set in the gateway; PhonePe redirects back here with ?orderId=&receipt=
-                await PhonePeGateway.checkout({
-                    product: productSlug || PRODUCT_BLUEPRINT,
+                const order = await PhonePeGateway.checkout({
+                    product,
                     successUrl: here,
                     failureUrl: here,
                     customer: { name: deviceLabel(), phone, email: 'guest-' + phone + '@legalshaadi.in' },
+                    redirect: false,
                 });
+                // Saved before leaving, so the purchase still unlocks here if PhonePe's redirect never arrives.
+                rememberOrder({ orderId: order.orderId, receipt: order.receipt, product, title: order.productName, createdAt: Date.now(), status: 'PENDING' });
+                location.assign(order.checkoutUrl);
             } catch (err) {
                 hideCheckoutOverlay();
                 showStatus('⚠️ ' + (CHECKOUT_ERRORS[err.code] || err.message || 'Payment shuru nahi ho saka. Dobara try karein.'), true);
-                setTimeout(() => statusEl.classList.add('hidden'), 6000);
                 checkoutBusy = false;
             }
         }
 
-        // 4. After PhonePe redirects back: unlock access only for a gateway-confirmed payment
-        let retryProduct = PRODUCT_BLUEPRINT;
-        let retryTitle = null;
-        const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+        // 4. Purchases saved on this device. Every checkout is stored before PhonePe opens, so access unlocks
+        //    here even when the redirect back never arrives. Status always comes from the gateway, which
+        //    confirms pending payments with PhonePe; download links are fetched fresh, never stored.
+        const STORE_KEY = 'ls_orders';
+        const MAX_SAVED = 10;
+        const POLL_EVERY_MS = 10_000;
+        const POLL_FAST_FOR_MS = 20 * 60_000;    // after this, re-check only when the shopper returns to the tab
+        const POLL_MAX_ORDERS = 3;               // keeps polling far below the gateway's rate limit
+        const GIVE_UP_AFTER_MS = 48 * 3_600_000; // the gateway stops asking PhonePe after 48h as well
+        const esc = (s) => String(s ?? '').replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        const redirectParams = new URLSearchParams(location.search);
+        const redirectOrderId = redirectParams.get('orderId');
+        const details = {}; // orderId → latest order from the gateway
+        const inFlight = new Set();
 
-        async function showOrderFromRedirect() {
-            const box = document.getElementById('unlockedDownloadBox');
-            const hint = document.getElementById('accessHint');
-            let order;
+        const isPending = (o) => o.status !== 'COMPLETED' && o.status !== 'FAILED';
+
+        function readSaved() {
             try {
-                order = await PhonePeGateway.fromRedirect();
+                const list = JSON.parse(localStorage.getItem(STORE_KEY) || '[]');
+                return Array.isArray(list) ? list.filter((o) => o && o.orderId && o.receipt) : [];
             } catch (err) {
-                order = null;
+                return null; // storage blocked: keep working from memory
             }
-            if (!order) return;
+        }
+        let saved = readSaved() || [];
 
-            hint.classList.add('hidden');
-            box.classList.remove('hidden');
-            if (order.status === 'COMPLETED') {
-                box.innerHTML =
-                    `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
-                        ✅ Payment Successful! ${esc(order.product ? order.product.name : 'Aapka order')} unlock ho gaya hai.
-                    </div>` +
+        // Each change re-reads storage first, so two open tabs don't overwrite each other's orders.
+        function changeSaved(fn) {
+            const current = readSaved();
+            if (current) saved = current;
+            saved = fn(saved).slice(0, MAX_SAVED);
+            try { localStorage.setItem(STORE_KEY, JSON.stringify(saved)); } catch (err) { /* memory only */ }
+        }
+        function rememberOrder(entry) {
+            changeSaved((list) => {
+                const prev = list.find((o) => o.orderId === entry.orderId);
+                return [{ createdAt: Date.now(), ...prev, ...entry }, ...list.filter((o) => o.orderId !== entry.orderId)];
+            });
+        }
+        const updateOrder = (orderId, patch) => changeSaved((list) => list.map((o) => (o.orderId === orderId ? { ...o, ...patch } : o)));
+        function forgetOrder(orderId) {
+            delete details[orderId];
+            changeSaved((list) => list.filter((o) => o.orderId !== orderId));
+        }
+
+        async function checkOrder(entry) {
+            if (inFlight.has(entry.orderId)) return;
+            inFlight.add(entry.orderId);
+            try {
+                const order = await PhonePeGateway.order(entry.orderId, entry.receipt);
+                const shownFailure = order.status === 'FAILED' && order.orderId === redirectOrderId;
+                if (order.status === 'FAILED' && !shownFailure) {
+                    forgetOrder(entry.orderId); // abandoned or declined attempt: nothing worth showing
+                } else if (isPending(order) && Date.now() - entry.createdAt > GIVE_UP_AFTER_MS) {
+                    forgetOrder(entry.orderId);
+                } else {
+                    details[entry.orderId] = order;
+                    const wasPaid = entry.status === 'COMPLETED';
+                    updateOrder(entry.orderId, {
+                        status: order.status,
+                        title: order.product ? order.product.name : entry.title,
+                        product: order.product ? order.product.slug : entry.product,
+                    });
+                    if (order.status === 'COMPLETED' && !wasPaid) {
+                        showStatus('🎉 Payment confirm ho gaya! Aapka download niche unlock ho gaya hai.');
+                        scrollToPurchases();
+                    }
+                }
+            } catch (err) {
+                if (err.status === 404) forgetOrder(entry.orderId); // unknown to the gateway; network errors retry later
+            } finally {
+                inFlight.delete(entry.orderId);
+            }
+            renderPurchases();
+        }
+
+        function retryOrder(orderId) {
+            const entry = saved.find((o) => o.orderId === orderId);
+            if (entry) startCheckout(entry.title, entry.product);
+        }
+
+        function scrollToPurchases() {
+            document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function purchaseCard(o) {
+            const order = details[o.orderId];
+            const name = esc(o.title || 'Aapka order');
+            const idLine = `<p class="text-[10px] text-slate-400">Order ID: <span class="font-mono select-all">${esc(o.orderId)}</span></p>`;
+            if (o.status === 'COMPLETED' && order) {
+                return `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
+                            ✅ Payment Successful! ${name} unlock ho gaya hai.
+                        </div>` +
                     order.downloads.map((d) => d.url
                         ? `<a href="${esc(d.url)}" class="pulse-btn block w-full bg-gradient-to-r from-amber-500 to-yellow-400 text-slate-950 font-black text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-xl">
                                📥 DOWNLOAD ${esc(d.fileName)}
@@ -840,27 +929,65 @@
                     (order.instructions
                         ? `<div class="bg-slate-900 border border-amber-500/50 rounded-xl p-3 text-left text-xs text-amber-100 whitespace-pre-wrap">${esc(order.instructions)}</div>`
                         : '') +
-                    `<p class="text-[10px] text-slate-400">Order ID: ${esc(order.orderId)} — is page ko bookmark kar lein, dobara download ke liye.</p>`;
-            } else if (order.status === 'FAILED') {
-                retryProduct = order.product && order.product.slug === PRODUCT_CONSULTANCY ? PRODUCT_CONSULTANCY : PRODUCT_BLUEPRINT;
-                retryTitle = order.product ? order.product.name : null;
-                box.innerHTML =
-                    `<div class="bg-red-950/60 border border-red-500 rounded-xl p-2.5 text-xs text-red-200 font-semibold">
-                        ❌ Payment fail ho gaya. Agar paise kate hain to wo apne aap wapas aa jayenge.
-                    </div>
-                    <button onclick="startCheckout(retryTitle, retryProduct)" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl">
-                        🔁 DOBARA TRY KAREIN
-                    </button>`;
-            } else {
-                box.innerHTML =
-                    `<div class="bg-amber-950/60 border border-amber-500 rounded-xl p-2.5 text-xs text-amber-200 font-semibold">
-                        ⏳ Payment confirm ho raha hai… ye page apne aap refresh hoga.
-                    </div>`;
-                setTimeout(() => location.reload(), 4000);
+                    idLine;
             }
-            document.getElementById('downloadSection').scrollIntoView({ behavior: 'smooth' });
+            if (o.status === 'COMPLETED') {
+                return `<div class="bg-emerald-900/50 border border-emerald-400 rounded-xl p-2.5 text-xs text-emerald-200 font-semibold">
+                            ✅ ${name}: paid. Download load ho raha hai…
+                        </div>` + idLine;
+            }
+            if (o.status === 'FAILED') {
+                return `<div class="bg-red-950/60 border border-red-500 rounded-xl p-2.5 text-xs text-red-200 font-semibold">
+                            ❌ Payment fail ho gaya. Agar paise kate hain to wo apne aap wapas aa jayenge.
+                        </div>
+                        <button onclick="retryOrder('${esc(o.orderId)}')" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl">
+                            🔁 DOBARA TRY KAREIN
+                        </button>`;
+            }
+            return `<div class="bg-amber-950/60 border border-amber-500 rounded-xl p-2.5 text-xs text-amber-200 font-semibold flex items-start space-x-2 text-left">
+                        <i class="fa-solid fa-circle-notch fa-spin mt-0.5 shrink-0"></i>
+                        <span>${name}: payment confirm ho raha hai… Paise kat gaye hain to chinta na karein — confirm hote hi download yahin khul jayega.</span>
+                    </div>` + idLine;
         }
-        showOrderFromRedirect();
+
+        function renderPurchases() {
+            const shown = saved.filter((o) => o.status !== 'FAILED' || o.orderId === redirectOrderId);
+            document.getElementById('accessHint').classList.toggle('hidden', shown.length > 0);
+            document.getElementById('purchasesTitle').innerText = shown.length ? '🔑 Meri Purchases' : 'Payment Done? Access Yahin Unlock Hoga';
+            const box = document.getElementById('unlockedDownloadBox');
+            box.classList.toggle('hidden', shown.length === 0);
+            box.innerHTML = shown
+                .map((o) => `<div class="space-y-2.5 pt-3 first:pt-0 border-t first:border-t-0 border-emerald-500/30">${purchaseCard(o)}</div>`)
+                .join('');
+        }
+
+        // PhonePe's redirect carries ?orderId=&receipt=; keep it with the rest.
+        if (redirectOrderId && redirectParams.get('receipt')) {
+            rememberOrder({ orderId: redirectOrderId, receipt: redirectParams.get('receipt') });
+        }
+        changeSaved((list) => list.filter((o) => o.status !== 'FAILED' || o.orderId === redirectOrderId));
+        renderPurchases();
+        saved.forEach(checkOrder); // fresh links for paid orders, status for the rest
+        if (redirectOrderId) scrollToPurchases();
+
+        setInterval(() => {
+            if (document.hidden) return;
+            saved.filter((o) => isPending(o) && Date.now() - o.createdAt < POLL_FAST_FOR_MS)
+                .slice(0, POLL_MAX_ORDERS)
+                .forEach(checkOrder);
+        }, POLL_EVERY_MS);
+
+        document.addEventListener('visibilitychange', () => {
+            if (!document.hidden) saved.filter(isPending).slice(0, POLL_MAX_ORDERS).forEach(checkOrder);
+        });
+
+        // Another open tab started or confirmed a payment.
+        window.addEventListener('storage', (e) => {
+            if (e.key !== STORE_KEY) return;
+            saved = readSaved() || saved;
+            renderPurchases();
+            saved.filter((o) => !details[o.orderId] || details[o.orderId].status !== o.status).forEach(checkOrder);
+        });
 
         // 5. FAQ Accordion Logic
         function toggleFaq(index) {
@@ -967,5 +1094,6 @@
             document.getElementById('infoModal').classList.add('hidden');
         }
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8822dfd2a4d64d298020825ca9371eb3","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
