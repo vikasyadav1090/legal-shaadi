@@ -110,7 +110,7 @@
             </p>
 
             <!-- Primary CTA Button -->
-            <button onclick="openPaymentModal('Course Blueprint - ₹399', PRODUCT_BLUEPRINT)" class="pulse-btn w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 active:scale-95 text-white font-extrabold text-base py-4 px-4 rounded-2xl shadow-2xl flex items-center justify-center space-x-2 border border-purple-400/40">
+            <button onclick="startCheckout('Course Blueprint - ₹399', PRODUCT_BLUEPRINT)" class="pulse-btn w-full bg-gradient-to-r from-purple-600 via-fuchsia-600 to-purple-600 active:scale-95 text-white font-extrabold text-base py-4 px-4 rounded-2xl shadow-2xl flex items-center justify-center space-x-2 border border-purple-400/40">
                 <i class="fa-solid fa-qrcode text-amber-300 text-lg"></i>
                 <span>PAY ₹399 & GET ACCESS NOW</span>
             </button>
@@ -258,7 +258,7 @@
                 </div>
             </div>
 
-            <button onclick="openPaymentModal('Course Blueprint + 3 Bonuses - ₹399', PRODUCT_BLUEPRINT)" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center space-x-2">
+            <button onclick="startCheckout('Course Blueprint + 3 Bonuses - ₹399', PRODUCT_BLUEPRINT)" class="w-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-500 hover:to-indigo-500 text-white font-extrabold text-xs sm:text-sm py-3.5 px-4 rounded-xl shadow-lg flex items-center justify-center space-x-2">
                 <i class="fa-solid fa-download"></i>
                 <span>DOWNLOAD COMPLETE MODULES (₹399)</span>
             </button>
@@ -354,7 +354,7 @@
                 </div>
 
                 <!-- Dedicated Consultancy CTA Button -->
-                <button onclick="openPaymentModal('1-on-1 Legal Consultancy + Free PDF - ₹399', PRODUCT_CONSULTANCY)" class="pulse-amber w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-4 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2">
+                <button onclick="startCheckout('1-on-1 Legal Consultancy + Free PDF - ₹399', PRODUCT_CONSULTANCY)" class="pulse-amber w-full bg-gradient-to-r from-amber-500 via-yellow-400 to-amber-500 active:scale-95 text-slate-950 font-black text-xs sm:text-sm py-4 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2">
                     <i class="fa-solid fa-headset text-base"></i>
                     <span>BOOK 1-ON-1 CONSULTANCY + FREE PDF @ ₹399</span>
                 </button>
@@ -433,7 +433,7 @@
                 <span class="text-4xl font-black text-emerald-400">₹399</span>
                 <span class="bg-emerald-500/20 text-emerald-400 border border-emerald-500 text-[10px] font-bold px-2 py-0.5 rounded">80% OFF</span>
             </div>
-            <button onclick="openPaymentModal('Course Blueprint + 1-on-1 Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
+            <button onclick="startCheckout('Course Blueprint + 1-on-1 Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-base py-3.5 px-4 rounded-xl shadow-2xl flex items-center justify-center space-x-2 mb-2.5">
                 <i class="fa-solid fa-lock"></i>
                 <span>PAY ₹399 WITH UPI NOW</span>
             </button>
@@ -495,7 +495,7 @@
                         <i id="faqIcon-2" class="fa-solid fa-chevron-down text-slate-400 transition-transform duration-300"></i>
                     </button>
                     <div id="faqBody-2" class="hidden px-3.5 pb-3.5 text-xs text-slate-300 leading-relaxed">
-                        Bahut aasan hai! Payment ke waqt aap apna Mobile Number darj karenge aur PhonePe Secure Checkout se ₹399 pay karenge. Payment confirm hote hi aapka Consultancy Slot register ho jayega, Free Course PDF isi page par unlock ho jayega, aur hamare Senior Legal Expert aapse 1-on-1 Audio/Telephonic session par aapke case ki strategy discuss karenge.
+                        Bahut aasan hai! Bas PhonePe Secure Checkout se ₹399 pay karein, koi form ya contact details nahi chahiye. Payment confirm hote hi aapka Consultancy Slot register ho jayega, Free Course PDF isi page par unlock ho jayega, aur hamare Senior Legal Expert aapse 1-on-1 Audio/Telephonic session par aapke case ki strategy discuss karenge.
                     </div>
                 </div>
 
@@ -560,45 +560,8 @@
         </footer>
     </div>
 
-    <!-- ===================================================================== -->
-    <!-- 12. UPI PAYMENT MODAL (#paymentModal)                                 -->
-    <!-- ===================================================================== -->
-    <div id="paymentModal" class="fixed inset-0 bg-black/85 backdrop-blur-sm z-50 flex items-center justify-center p-4 hidden">
-        <div class="bg-slate-900 border-2 border-purple-500 rounded-3xl max-w-sm w-full p-5 text-center relative shadow-2xl">
-            <button onclick="closePaymentModal()" class="absolute top-3.5 right-3.5 w-8 h-8 rounded-full bg-slate-800 text-slate-400 hover:text-white flex items-center justify-center">
-                <i class="fa-solid fa-xmark text-lg"></i>
-            </button>
-
-            <span class="inline-block bg-purple-600/20 border border-purple-500/50 text-purple-300 text-[10px] font-bold px-2.5 py-0.5 rounded-full uppercase mb-1">
-                🔒 100% Secure PhonePe Checkout
-            </span>
-            <h3 class="heading-font text-lg font-bold text-amber-400 mb-0.5">Pay ₹399 & Unlock Access</h3>
-            <p id="modalPlanTitle" class="text-[11px] text-emerald-300 font-semibold mb-1">Course Blueprint - ₹399</p>
-            <p class="text-[11px] text-slate-400 mb-3">UPI (GPay, PhonePe, Paytm), Debit/Credit Card ya Net Banking</p>
-
-            <form id="checkoutForm" class="space-y-2.5 text-left mb-3" onsubmit="startCheckout(event)">
-                <div>
-                    <label for="buyerName" class="block text-[11px] font-bold text-slate-300 mb-1">Aapka Naam</label>
-                    <input id="buyerName" type="text" maxlength="100" autocomplete="name" placeholder="Full name" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
-                </div>
-                <div>
-                    <label for="buyerPhone" class="block text-[11px] font-bold text-slate-300 mb-1">Mobile Number <span class="text-red-400">*</span> <span class="font-normal text-slate-500">(Consultancy call ke liye)</span></label>
-                    <input id="buyerPhone" type="tel" maxlength="10" inputmode="numeric" autocomplete="tel-national" required placeholder="10-digit mobile number" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
-                </div>
-                <div>
-                    <label for="buyerEmail" class="block text-[11px] font-bold text-slate-300 mb-1">Email <span class="font-normal text-slate-500">(Optional)</span></label>
-                    <input id="buyerEmail" type="email" maxlength="200" autocomplete="email" placeholder="you@example.com" class="w-full bg-slate-950 border border-slate-700 focus:border-purple-400 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 outline-none">
-                </div>
-
-                <p id="checkoutError" class="text-[11px] text-red-400 font-bold hidden"></p>
-
-                <button id="checkoutBtn" type="submit" class="pulse-btn w-full bg-purple-600 hover:bg-purple-500 disabled:opacity-60 text-white font-bold py-3 px-3 rounded-xl text-xs flex items-center justify-center space-x-2 shadow-lg">
-                    <i class="fa-solid fa-lock"></i>
-                    <span id="checkoutBtnText">Pay ₹399 Securely via PhonePe</span>
-                </button>
-            </form>
-        </div>
-    </div>
+    <!-- Checkout status (no contact details are collected; PhonePe opens directly) -->
+    <div id="checkoutStatus" role="status" class="fixed bottom-24 left-1/2 -translate-x-1/2 z-50 max-w-sm w-[calc(100%-2rem)] bg-slate-900 border border-purple-500 rounded-xl px-4 py-3 text-xs font-bold text-center text-white shadow-2xl hidden"></div>
 
     <!-- ===================================================================== -->
     <!-- POPUP MODAL (#infoModal) FOR PRIVACY, REFUND, TERMS & CONTACT US      -->
@@ -647,7 +610,7 @@
                     <span class="bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 text-[9px] font-bold px-1.5 py-0.2 rounded">80% OFF</span>
                 </div>
             </div>
-            <button onclick="openPaymentModal('Course Blueprint + Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 active:bg-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
+            <button onclick="startCheckout('Course Blueprint + Consultancy Offer - ₹399', PRODUCT_CONSULTANCY)" class="pulse-btn bg-gradient-to-r from-purple-600 to-fuchsia-600 active:bg-purple-700 text-white font-extrabold text-xs py-3 px-4 rounded-xl shadow-xl flex items-center space-x-1.5 shrink-0">
                 <i class="fa-solid fa-bolt text-amber-300"></i>
                 <span>PAY ₹399 VIA UPI</span>
             </button>
@@ -708,61 +671,55 @@
         setTimeout(showPurchaseToast, 4000);
         setInterval(showPurchaseToast, 10000);
 
-        // 3. PhonePe Payment Modal Controls (via pg.klabs.in gateway)
-        let selectedProduct = PRODUCT_BLUEPRINT;
-
-        function openPaymentModal(planTitle, productSlug) {
-            if (planTitle) {
-                const titleEl = document.getElementById('modalPlanTitle');
-                if (titleEl) titleEl.innerText = planTitle;
-            }
-            selectedProduct = productSlug || PRODUCT_BLUEPRINT;
-            document.getElementById('checkoutError').classList.add('hidden');
-            document.getElementById('paymentModal').classList.remove('hidden');
-        }
-
-        function closePaymentModal() {
-            document.getElementById('paymentModal').classList.add('hidden');
-        }
-
+        // 3. PhonePe checkout (via pg.klabs.in gateway). No contact form: downloads unlock on this page,
+        //    so the order carries only a generic device label, a random placeholder number and a matching placeholder email.
         const CHECKOUT_ERRORS = {
-            CUSTOMER_PHONE_REQUIRED: 'Kripya apna 10-digit mobile number darj karein.',
-            CUSTOMER_EMAIL_REQUIRED: 'Kripya apna email darj karein.',
             RATE_LIMITED: 'Bahut zyada koshish ho gayi. 1 minute baad dobara try karein.',
             PHONEPE_ERROR: 'PhonePe abhi response nahi de raha. Thodi der baad dobara try karein.',
         };
 
-        async function startCheckout(e) {
-            e.preventDefault();
-            const name = document.getElementById('buyerName').value.trim();
-            const phone = document.getElementById('buyerPhone').value.trim();
-            const email = document.getElementById('buyerEmail').value.trim();
-            const errEl = document.getElementById('checkoutError');
-            const btn = document.getElementById('checkoutBtn');
-            const btnText = document.getElementById('checkoutBtnText');
+        function deviceLabel() {
+            const ua = navigator.userAgent;
+            const os = /Android/i.test(ua) ? 'Android' : /iPhone|iPad|iPod/i.test(ua) ? 'iOS'
+                : /Windows/i.test(ua) ? 'Windows' : /Mac/i.test(ua) ? 'Mac' : /Linux/i.test(ua) ? 'Linux' : 'Web';
+            const browser = /Edg\//.test(ua) ? 'Edge' : /SamsungBrowser/.test(ua) ? 'Samsung'
+                : /Chrome|CriOS/.test(ua) ? 'Chrome' : /Firefox|FxiOS/.test(ua) ? 'Firefox' : /Safari/.test(ua) ? 'Safari' : 'Browser';
+            return os + ' ' + browser;
+        }
 
-            const showError = (msg) => {
-                errEl.innerText = '⚠️ ' + msg;
-                errEl.classList.remove('hidden');
+        function randomPhone() {
+            let n = String(6 + Math.floor(Math.random() * 4));
+            for (let i = 0; i < 9; i++) n += Math.floor(Math.random() * 10);
+            return n;
+        }
+
+        let checkoutBusy = false;
+
+        async function startCheckout(planTitle, productSlug) {
+            if (checkoutBusy) return;
+            checkoutBusy = true;
+            const statusEl = document.getElementById('checkoutStatus');
+            const showStatus = (msg, isError) => {
+                statusEl.innerText = msg;
+                statusEl.classList.toggle('border-red-500', !!isError);
+                statusEl.classList.toggle('text-red-300', !!isError);
+                statusEl.classList.remove('hidden');
             };
-            if (!/^[6-9]\d{9}$/.test(phone)) return showError('Kripya sahi 10-digit mobile number darj karein.');
-            errEl.classList.add('hidden');
-
-            btn.disabled = true;
-            btnText.innerText = 'PhonePe khul raha hai…';
+            showStatus('🔒 ' + (planTitle || 'Secure Checkout') + ' — PhonePe khul raha hai…');
+            const phone = randomPhone();
             const here = location.origin + location.pathname;
             try {
                 // Price is set in the gateway; PhonePe redirects back here with ?orderId=&receipt=
                 await PhonePeGateway.checkout({
-                    product: selectedProduct,
+                    product: productSlug || PRODUCT_BLUEPRINT,
                     successUrl: here,
                     failureUrl: here,
-                    customer: { name: name || undefined, phone, email: email || undefined },
+                    customer: { name: deviceLabel(), phone, email: 'guest-' + phone + '@legalshaadi.in' },
                 });
             } catch (err) {
-                showError(CHECKOUT_ERRORS[err.code] || err.message || 'Payment shuru nahi ho saka. Dobara try karein.');
-                btn.disabled = false;
-                btnText.innerText = 'Pay ₹399 Securely via PhonePe';
+                showStatus('⚠️ ' + (CHECKOUT_ERRORS[err.code] || err.message || 'Payment shuru nahi ho saka. Dobara try karein.'), true);
+                setTimeout(() => statusEl.classList.add('hidden'), 6000);
+                checkoutBusy = false;
             }
         }
 
@@ -806,7 +763,7 @@
                     `<div class="bg-red-950/60 border border-red-500 rounded-xl p-2.5 text-xs text-red-200 font-semibold">
                         ❌ Payment fail ho gaya. Agar paise kate hain to wo apne aap wapas aa jayenge.
                     </div>
-                    <button onclick="openPaymentModal(retryTitle, retryProduct)" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl">
+                    <button onclick="startCheckout(retryTitle, retryProduct)" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-extrabold text-xs py-3 px-4 rounded-xl">
                         🔁 DOBARA TRY KAREIN
                     </button>`;
             } else {
@@ -925,5 +882,6 @@
             document.getElementById('infoModal').classList.add('hidden');
         }
     </script>
+<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/vce701823e78c4301a35b7e07294d87301792088814092" integrity="sha512-UKNk8GbxkABxKcXYuLkO16EleLGUkcvJWtpSNmExE0Too3ZaFAxTscNWEc1OdAv5/BikHawapSCaiD2XCmp+Bw==" data-cf-beacon='{"version":"2024.11.0","token":"8822dfd2a4d64d298020825ca9371eb3","r":1,"spa":2}' crossorigin="anonymous"></script>
 </body>
 </html>
